@@ -4,7 +4,7 @@ import './App.css';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import ProtectedRoute from './Routes/Protectedroutes';
 import AuthRoute from './Routes/AuthRoute';
-
+ 
 export default function App() {
   const Routing =()=>{
     return(

@@ -8,6 +8,9 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import Loader from '../Loader';
 import { withRouter } from 'react-router';
+import { withStyles } from "@material-ui/core/styles";
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const service = new UserService();
 const userNameRef = React.createRef();
@@ -19,7 +22,15 @@ function Alert(props) {
     return <MuiAlert variant="filled" {...props} />;
   }  
 
+  const styles = theme => ({
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: '#fff',
+    },
+  });
+
 class Login extends React.Component {
+    
     constructor(props) {
         super(props);
         this.state = ({
@@ -35,7 +46,7 @@ class Login extends React.Component {
             open: false,
             snackMessage: "",
             snackType: "",
-            toggle:false,
+            loader:false,
             show:true
         })
     }
@@ -109,14 +120,20 @@ class Login extends React.Component {
     }
 
     changeLogin = () => {
-        console.log("im working");
         this.setState({ login: !this.state.login })
     }
 
     handleToggle = () => {
-        this.setState({toggle:!this.state.toggle});
+        this.setState({loader:!this.state.loader});
     };
   
+    handleClose = (event, reason) => {
+        if (reason === "clickaway") {
+          return;
+        }
+        this.setState({loader:false});
+    };
+
     login = () => {
         if (this.validationCheck()) {
             let data = {
@@ -124,19 +141,16 @@ class Login extends React.Component {
                 "password": this.state.password,
             }
             console.log(data);
+            this.handleToggle();
             service.userlogin(data).then((res) => {
                 console.log(res.data.result);
                 localStorage.setItem('Token', res.data.result.accessToken);
-
                 this.setState({ snackType: "success", snackMessage: "Login successful", open: true, setOpen: true });
-               
-                // <Loader handleToggle={this.handleToggle} toggle={this.state.toggle}/>
-
-                // this.props.history.push('/home');
-
+                this.handleClose();
+                this.props.history.push('/home');
             }).catch((error) => {
                 console.log(error);
-                
+                this.handleClose();
                 this.setState({ snackType: "error", snackMessage: "Login Failed", open: true, setOpen: true })
             })
         }
@@ -154,7 +168,14 @@ class Login extends React.Component {
         }
         this.setState({ show: false })
     }
+    handleSnackClose = () => {
+        this.setState({
+            open: false,
+            setOpen: false
+        })
+    }
     render() {
+        const {classes} = this.props;
         return (
             <>
                 <TextField inputRef={userNameRef} onKeyPress={this.nameKeyPress} id="outlined-basic" label="Email Id" variant="outlined"
@@ -175,7 +196,13 @@ class Login extends React.Component {
                     />
                 </div>
                 <Button ref={saveRef} onKeyDown={this.saveKeyPress}variant="contained" color="secondary" onClick={this.login} >Login</Button>
-              
+                {this.state.loader ?
+                    <Backdrop
+                    className={classes.backdrop}
+                    open={this.state.loader}
+                    onClick={this.handleClose}>
+          <CircularProgress color="inherit" />
+        </Backdrop>:<></>}
                 <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
 
                     <div className="line"></div>OR<div className="line"></div></div>
@@ -199,7 +226,7 @@ class Login extends React.Component {
     }
 }
 
-export default withRouter(Login);
+export default withRouter(withStyles(styles)(Login));
 
 
 

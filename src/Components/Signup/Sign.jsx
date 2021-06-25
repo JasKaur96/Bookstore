@@ -7,8 +7,12 @@ import UserService from '../../Services/UserService';
 import loginImage from '../../Assets/loginImg.png';
 import Login from '../../Components/Login/Login';
 import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
- 
+import MuiAlert from "@material-ui/lab/Alert"; 
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { withRouter } from 'react-router';
+import { withStyles } from "@material-ui/core/styles";
+
 const service = new UserService();
 const nameRef = React.createRef();
 const emailRef = React.createRef();
@@ -16,13 +20,18 @@ const passwordRef = React.createRef();
 const mobileRef = React.createRef();          
 const saveRef= React.createRef();
  
+const styles = theme => ({
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: '#fff',
+    },
+  });
 
 function Alert(props) {
     return <MuiAlert variant="filled" {...props} />;
   }
 
-
-export default class Sign extends Component {
+class Sign extends Component {
     constructor(props) {
         super(props);
         this.state = ({
@@ -42,7 +51,9 @@ export default class Sign extends Component {
             visibility:false,
             open: false,
             snackMessage: "",
-            snackType: ""
+            snackType: "",
+            loader:false,
+            show:true
         })
     }
     componentDidMount(){
@@ -151,7 +162,16 @@ export default class Sign extends Component {
     changetologin = () => {
         this.setState({ login: false })
     }
-
+    handleToggle = () => {
+        this.setState({loader:!this.state.loader});
+    };
+  
+    handleClose = (event, reason) => {
+        if (reason === "clickaway") {
+          return;
+        }
+        this.setState({loader:false});
+    };
     signUp = (e) => {
         e.preventDefault();
         if (this.validationCheck()) {
@@ -161,14 +181,15 @@ export default class Sign extends Component {
                 "password": this.state.password,
                 "phone": this.state.mobile
             }
+            this.handleToggle();
             service.userRegistration(data).then((result) => {
                 console.log(result);
-                this.setState({ snackType: "success", snackMessage: "Login successful", open: true, setOpen: true })
-
+                this.setState({ snackType: "success", snackMessage: "Registered successful", open: true, setOpen: true })
+                this.handleClose();
             }).catch((error) => {
                 console.log(error);
-                
-                this.setState({ snackType: "error", snackMessage: "Login Failed", open: true, setOpen: true })
+                this.handleClose();
+                this.setState({ snackType: "error", snackMessage: "Registeration Failed", open: true, setOpen: true })
             })
         }
     }
@@ -179,23 +200,24 @@ export default class Sign extends Component {
         })
     }
 
-    Login = () => {
-        let data = {
-            "email": "",
-            "password": ""
-        }
-        service.userlogin(data).then((result) => {
-            console.log(result);
-        }).catch((error) => {
-            console.log(error);
-        })
-    }
+    // Login = () => {
+    //     let data = {
+    //         "email": "",
+    //         "password": ""
+    //     }
+    //     service.userlogin(data).then((result) => {
+    //         console.log(result);
+    //     }).catch((error) => {
+    //         console.log(error);
+    //     })
+    // }
 
-    changeVisibility = () => {
+    changeVisibility = () => { 
         this.setState({ visibility: !this.state.visibility });
     }
 
     render() {
+        const {classes} = this.props;
         return (
             <><TextField id="outlined-basic" inputRef={nameRef} onKeyPress={this.nameKeyPress}
                     label="Fullname" className="textField"  variant="outlined" margin='dense'
@@ -228,7 +250,13 @@ export default class Sign extends Component {
                         onClick={(e) => this.signUp(e)} >
                         Signup
                     </Button>           
-
+                    {this.state.loader ?
+                    <Backdrop
+                        className={classes.backdrop}
+                        open={this.state.loader}
+                        onClick={this.handleClose}>
+                        <CircularProgress color="inherit" />
+                    </Backdrop>:<></>}
                       <div >
                     <Snackbar open={this.state.open} autoHideDuration={3000} onClose={this.handleSnackClose}  >
                         <Alert severity={this.state.snackType}>
@@ -240,3 +268,10 @@ export default class Sign extends Component {
         )
     }
 }
+
+
+
+export default withRouter(withStyles(styles)(Sign));
+
+
+
