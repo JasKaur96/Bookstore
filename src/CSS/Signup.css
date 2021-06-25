@@ -1,0 +1,22 @@
+.body{
+    width: 1536px;
+    height: 720px;
+    background-color:  #878787;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.background {
+    position: absolute;
+    width: 624px;
+    height: 391px;
+    background: #6e6a6a 0% 0% no-repeat padding-box;
+    border-radius: 12px;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+}
