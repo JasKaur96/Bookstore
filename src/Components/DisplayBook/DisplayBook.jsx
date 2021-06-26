@@ -28,13 +28,15 @@ export default class DisplayBook extends Component {
         this.getAllBooks();
     } 
 
-    bookDetails = () =>{
-        console.log("Book next page")
-        this.props.selectedNext()
-    }
+    bookDetails = (e,value) =>{
+        console.log("Book next page",this.state._books)
+        console.log("Book page value",value)
+        this.props.onClickBook(value);
+        this.props.selectedNext(this.state._books)
+    } 
 
     changepage = (e, newpage) => {
-        console.log("imvdn");
+      
         console.log(e.target.value);
         this.setState({ currentPage: newpage });
     };
@@ -60,6 +62,7 @@ export default class DisplayBook extends Component {
             books = res.data.result;
             var book = this.storeBooks(books);
             this.setState({ _books: book });
+           
         }).catch((err) => {
             console.log(err);
         })
@@ -105,7 +108,7 @@ export default class DisplayBook extends Component {
                     </div>
                     <div className="books">
                         {currentBooks.map((book, index) => {
-                            return <div className="showbooks" onClick={this.bookDetails}>
+                            return <div className="showbooks"  onClick={(e)=>this.bookDetails(e,book)}>
                                 <div className="bookimage">
                                     <img src={book1} alt=""  />
                                 </div>

@@ -18,12 +18,13 @@ export default class BookDetails extends Component {
         this.state = ({          
             bookDetails: [],
             checkbook: false,
+           
         })
     }
 
-    getDetails = (value) => {
-        this.setState({bookDetails : value})
-        console.log("getDetails ", value)
+    getDetails = () => {
+        this.setState({bookDetails : this.props.book})
+        console.log("getDetails ", this.state.bookDetails)
     }
    
     render() {
@@ -31,6 +32,7 @@ export default class BookDetails extends Component {
         // const FirstBook = LastBook - this.state.postsPerPage;
         // console.log(this.state.books);
         // const currentBooks = this.state.books.slice(FirstBook, LastBook);
+        console.log("Details here",this.props)
         return (
             <>
                 <div className="usercontent">
@@ -39,30 +41,30 @@ export default class BookDetails extends Component {
                             Books Detail
                         </div>
                     </div>
-                    {/* <div className="books">
-                        {currentBooks.map((book, index) => {
-                            return <div className="showbooks">
+                    <div className="books">
+                        {/* {this.props.book.((book, index) => { */}
+                            return {<div className="showbooks">
                                 <div className="bookimage">
                                     <img src={book1} alt="" />
                                 </div>
                                 <div className="content">
-                                    <div className="bookname">{book.bookName}</div>
-                                    <div className="author">by{book.author}</div>
+                                    <div className="bookname">{this.props.bookName}</div>
+                                    <div className="author">by{this.props.author}</div>
                                     <div className="rating">
                                         <div className="rate">4.5 &#9733;</div>
                                     </div>
-                                    <div className="price">Rs.{book.price}</div>
+                                    <div className="price">Rs.{this.props.price}</div>
                                 </div>
                             </div>
                         })
-                        }
-                    </div> */}
+                        {/* } */}
+                    </div>
 
-                    <PaginationBar books={this.state.books}
+                    {/* <PaginationBar books={this.state.books}
                         postsPerPage={this.state.postsPerPage}
                         currentPage={this.state.currentPage}
                         changepage={this.changepage}
-                    />
+                    /> */}
 
                 </div>
             </>
