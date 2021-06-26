@@ -31,8 +31,9 @@ export default class DisplayBook extends Component {
     bookDetails = (e,value) =>{
         console.log("Book next page",this.state._books)
         console.log("Book page value",value)
-        this.props.onClickBook(value);
-        this.props.selectedNext(this.state._books)
+        // this.props.onClickBook(value);
+        // this.props.selectedNext(this.state._books)
+        this.props.bookDetail(value);
     } 
 
     changepage = (e, newpage) => {

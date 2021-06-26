@@ -42,21 +42,22 @@ export default class BookDetails extends Component {
                         </div>
                     </div>
                     <div className="books">
+                        {/* {this.props.displayDetail.bookName} */}
                         {/* {this.props.book.((book, index) => { */}
-                            return {<div className="showbooks">
+                            <div className="showbooks">
                                 <div className="bookimage">
                                     <img src={book1} alt="" />
                                 </div>
                                 <div className="content">
-                                    <div className="bookname">{this.props.bookName}</div>
-                                    <div className="author">by{this.props.author}</div>
+                                    <div className="bookname">{this.props.displayDetail.bookName}</div>
+                                    <div className="author">by{this.props.displayDetail.author}</div>
                                     <div className="rating">
                                         <div className="rate">4.5 &#9733;</div>
                                     </div>
                                     <div className="price">Rs.{this.props.price}</div>
                                 </div>
                             </div>
-                        })
+                        
                         {/* } */}
                     </div>
 
