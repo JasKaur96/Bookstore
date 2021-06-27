@@ -27,7 +27,7 @@ export default class DisplayBook extends Component {
     componentDidMount() {
         this.getAllBooks();
     } 
-
+ 
     bookDetails = (e,value) =>{
         console.log("Book next page",this.state._books)
         console.log("Book page value",value)

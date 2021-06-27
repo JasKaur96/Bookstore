@@ -4,8 +4,6 @@ import { BrowserRouter as Router, Route, Link, Navlink, Switch, BrowserRouter } 
 import '../../CSS/LoginComp.css';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import UserService from '../../Services/UserService';
-import loginImage from '../../Assets/loginImg.png';
-import Login from '../../Components/Login/Login';
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert"; 
 import Backdrop from "@material-ui/core/Backdrop";
@@ -144,9 +142,7 @@ class Sign extends Component {
             this.setState({ mobileErrormsg: "Enter a mobile" })
             valid = false;
         }
-
         return valid;
-
     }
 
     changeState = (e) => {
@@ -154,7 +150,6 @@ class Sign extends Component {
         let value = e.target.value;
         this.setState({ [name]: value })
     }
-
 
     changetoSignup = () => {
         this.setState({ login: true })
@@ -172,6 +167,7 @@ class Sign extends Component {
         }
         this.setState({loader:false});
     };
+   
     signUp = (e) => {
         e.preventDefault();
         if (this.validationCheck()) {
@@ -200,17 +196,17 @@ class Sign extends Component {
         })
     }
 
-    // Login = () => {
-    //     let data = {
-    //         "email": "",
-    //         "password": ""
-    //     }
-    //     service.userlogin(data).then((result) => {
-    //         console.log(result);
-    //     }).catch((error) => {
-    //         console.log(error);
-    //     })
-    // }
+    Login = () => {
+        let data = {
+            "email": "",
+            "password": ""
+        }
+        service.userlogin(data).then((result) => {
+            console.log(result);
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
 
     changeVisibility = () => { 
         this.setState({ visibility: !this.state.visibility });
