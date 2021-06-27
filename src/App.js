@@ -4,6 +4,8 @@ import './App.css';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import ProtectedRoute from './Routes/Protectedroutes';
 import AuthRoute from './Routes/AuthRoute';
+import CartBag from './Components/Cart/CartBag';
+import OrderSucess from './Components/Order/Order';
  
 export default function App() {
   const Routing =()=>{
@@ -13,6 +15,8 @@ export default function App() {
         <Switch>
           <AuthRoute exact path="/" component={Signup} ></AuthRoute>    
           <ProtectedRoute exact path="/home" component={Dashboard} ></ProtectedRoute>         
+          <Route path="/cart" component={CartBag}></Route> 
+          <Route path="/ordersucess" component={OrderSucess}></Route> 
         </Switch>
       </div>
     </Router>)

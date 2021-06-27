@@ -7,16 +7,21 @@ import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import { BrowserRouter as Router, Route, Link, Navlink, Switch, BrowserRouter,Redirect } from 'react-router-dom';
 
 export default class Header extends Component {
+
+  onClickOpen = () =>{
+    this.props.openCart();
+  }
+
     render() {
         return (
             <>
             <div className="appbar"> 
             <div>
             <img src={Book}  alt=""/>
-              <p><Link to ="/home" style={{listStyleType:"none",color:'white',textDecoration:'none'}}>Bookstore</Link></p> 
+              <p><Link to="/home" style={{listStyleType:"none",color:'white',textDecoration:'none'}}>Bookstore</Link></p> 
              
               <div className="input">
-               < SearchOutlinedIcon className="searchicon" />   
+               <SearchOutlinedIcon className="searchicon" />   
               <input type="text" placeholder="Search" />
               </div>
               </div> 
@@ -27,7 +32,7 @@ export default class Header extends Component {
               </div>
               
               <div className="cart">
-                <ShoppingCartOutlinedIcon className="carticon" />
+                <ShoppingCartOutlinedIcon className="carticon" onClick={this.onClickOpen} />
                   Cart
               </div>
              

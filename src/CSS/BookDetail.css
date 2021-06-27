@@ -1,8 +1,8 @@
 .mainContainer{
     margin-top: 6%;
-    width: 80%;
+    width: 70%;
     height: 100vh;
-    margin-left: 180px;
+    margin-left: 170px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     opacity: 1;
     display: flex;
@@ -25,7 +25,7 @@
 .twoimg-comtainer{
     display: flex;
     flex-direction: column;
-    width: 12%;
+    width: 16%;
     height: 35%;
 }
 .imgsmall1{
@@ -63,25 +63,27 @@
     border: 1px solid grey;
 }
 .bigimg{
-    width: 70%;
+    width: 74%;
     height: 85%;
 }
 .wishlist{
-    width : 60%;
+    width : 84%;
     height : 10%;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    margin-left: 27%;
+    margin-left: 14%;
+    /* align-items: center; */
+    margin-top: 3%;
 }
 .addtobag{
     border : none;
     outline: none;
     color : #fff;
-    background-color: brown;
-    height : 130%;
-    width :40%;
+    background-color: #A03037;
+    height : 40px;
+    width :170px;
     border-radius: 1px;
     cursor: pointer;
 }
@@ -108,9 +110,10 @@
     outline: none;
     color : #fff;
     background-color:  rgba(26, 1, 1, 0.733);
-    height : 130%;
-    width :40%;
+    height : 40px;
+    width :170px;
     border-radius: 1px;
+    margin-left: 13%;
     cursor: pointer;
 }
 .details{
@@ -133,9 +136,9 @@
     height : 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    /* justify-content: sp; */
 }
-title{
+.titlebook{
     width : 100%;
     height : fit-content;
     text-align: left;
@@ -143,12 +146,13 @@ title{
     font: normal normal normal 28px/37px Roboto;
     color: #0A0102;
     position: relative;
-    right : 7px; 
+    /* right : 7px;  */
     opacity: 1;
 }
 .author{
     width : 100%;
     height : fit-content;
+    text-align: left;
     display: flex;
     flex-direction: row;
     font-family: 'Roboto', sans-serif;
@@ -160,6 +164,7 @@ title{
     height: fit-content;
     display: flex;
     flex-direction: row;
+    margin-top: 10px;
 }
 .star{
     display: flex;
@@ -187,17 +192,18 @@ title{
     display: flex;
     flex-direction: row;
     width : 25%;
-   
     align-items: center;
     justify-content: space-around;
     font-family: 'Roboto', sans-serif;
+    margin-top: 15px;
 }
 
 .discount-price {
     font-family: 'Roboto', sans-serif;
     color : black;
     font-size: x-large;
-    font-weight: 700;}
+    font-weight: 700;
+}
 
 .price{
     font-family: 'Roboto', sans-serif;
@@ -207,17 +213,17 @@ title{
 .horizoantalline{
     width : 100%;
     height : fit-content;
+    margin-top: -20px;
+    margin-bottom: 20px;
 }
 
 .desc-book{
     width : 90%;
     height : 20%;
-    
     margin-right: 3%;
     display: flex;
     flex-direction: column;
-    
-    justify-content: space-around;
+    /* justify-content: space-around; */
 }
 
 .desc-title {
@@ -230,6 +236,7 @@ title{
     align-items: center;
     justify-content: space-around;
     font-family: 'Roboto', sans-serif;
+    margin-top: 30px;
 }
 .dot {
     width : 7px;
@@ -238,34 +245,106 @@ title{
     background-color: grey;
 }
 .lorem{
-    width : fit-content; 
-    height :  fit-content;
-    text-align: left;
-    font-family: 'Roboto', sans-serif;
-    color: grey;
+   margin-top: 7px;
+   margin-left: 12px;
+    width: 542px;
+    height: 75px;
+    /* text-align: left; */
+    font: normal normal normal 12px/16px Roboto;
+    letter-spacing: 0px;
+    color: #373434;
+    opacity: 1;
 }
 .horizoantalline{
     width : 100%;
     height : fit-content;
+    margin-top: 3px;
 }
 .customer-feedback {
-    width : 93%;
+    width : 100%;
     height : 30%;
     display: flex;
     flex-direction: column;
-    font-size:large;
+    font-size:medium;
     text-align: left;
-    justify-content: space-around;
+    margin-top: 10px;
+    font: normal normal normal 18px/24px Roboto;
+    letter-spacing: 0px;
+    /* justify-content: space-around; */
 }
 .feedback{
     font-family: 'Roboto', sans-serif;
     font-size: large;
     color: black;
     font-weight: 700;
+    margin-top: 10px;
+  /* margin-top: 10px; */
 }
+
 .reviews{
     width : 90%;
     height : 30%;
     margin-top: 1%;
     margin-right: 2.5%;
+}
+
+.customer-feedback-container {
+    width : 100%;
+    height : 120%;
+    display: flex;
+    /* padding: 2%; */
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: #F5F5F5;    
+    margin-top: 20px;    
+    /* border-top-width : 10%;  */
+
+}
+
+.overall-rating {
+    font-size: medium;
+    font-family: 'Roboto', sans-serif;
+}
+
+.rating-stars-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.textarea-actual-cutomerfeedback {
+    border : none;
+    outline: none;
+    width: 100%;
+}
+
+.submit-button-container-feedback {
+    width: 76px;
+    height: 24px;
+    background: #3371B5 0% 0% no-repeat padding-box;
+    border-radius: 2px;
+    opacity: 1;
+    margin-left: 400px;
+}
+
+.button {
+    border : none;
+    outline: none;
+    width: 44px;
+    height: 19px;
+    font: normal normal normal 14px/19px Roboto;
+    letter-spacing: 0px;
+    text-transform: capitalize;
+    opacity: 1;
+    background: #3371B5 0% 0% no-repeat padding-box;
+    color: #FFFFFF;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+}
+
+@media only screen and (max-width: 600px){
+    .mainContainer{
+        width: 100%;
+    }
 }

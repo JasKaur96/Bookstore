@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
 import './DispalyBook.css';
 import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
+import MenuItem from '@material-ui/core/MenuItem'; 
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import UserService from '../../Services/BookService';
 import book1 from "../../Assets/book.png";
 import PaginationBar from '../Pagination/Pagination';
+import { withStyles } from "@material-ui/core/styles";
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const service = new UserService();
 
-export default class DisplayBook extends Component {
+const styles = theme => ({
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: '#fff',
+    },
+  });
+  
+class DisplayBook extends Component {
     constructor(props) {
         super(props);
         this.state = ({
@@ -21,10 +31,13 @@ export default class DisplayBook extends Component {
             currentPage: "1",
             books: [],
             checkbook: false,
+            loader:false,
+            show:true
         })
     }
 
     componentDidMount() {
+        
         this.getAllBooks();
     } 
  
@@ -56,16 +69,28 @@ export default class DisplayBook extends Component {
     handleChange = (event) => {
         this.setState({ sort: event.target.value });
     };
+    handleToggle = () => {
+        this.setState({loader:!this.state.loader});
+    };
+  
+    handleClose = (event, reason) => {
+        if (reason === "clickaway") {
+          return;
+        }
+        this.setState({loader:false});
+    };
 
     getAllBooks = () => {
         var books = [];
+        this.handleToggle()
         service.getAllBooks().then((res) => {
             books = res.data.result;
             var book = this.storeBooks(books);
             this.setState({ _books: book });
-           
+           this.handleClose();
         }).catch((err) => {
             console.log(err);
+            this.handleClose();
         })
     }
 
@@ -81,8 +106,17 @@ export default class DisplayBook extends Component {
         const FirstBook = LastBook - this.state.postsPerPage;
         console.log(this.state._books);
         const currentBooks = this.state._books.slice(FirstBook, LastBook);
+        const {classes} = this.props;
+
         return (
-            <>
+            <>    {this.state.loader ?
+                    <Backdrop
+                    className={classes.backdrop}
+                    open={this.state.loader}
+                    onClick={this.handleClose}>
+                    <CircularProgress color="inherit" />
+                </Backdrop>:<>
+
                 <div className="usercontent">
                     <div className="inlineheader">
                         <div className="headers">
@@ -132,8 +166,11 @@ export default class DisplayBook extends Component {
                         changepage={this.changepage}
                     />
 
-                </div>
+                </div></>}
+            
             </>
         )
     }
 }
+
+export default withStyles(styles)(DisplayBook);

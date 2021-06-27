@@ -173,7 +173,7 @@ class Login extends React.Component {
             open: false,
             setOpen: false
         })
-    }
+    } 
     render() {
         const {classes} = this.props;
         return (
