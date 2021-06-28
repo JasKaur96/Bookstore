@@ -4,6 +4,10 @@ import Header from '../../Components/Header/Header'
 import BookDetails from '../../Components/BookDetails/BookDetails';
 import { withRouter } from 'react-router';
 import Footer from '../../Components/Footer/Footer';
+import Service from '../../Services/BookService';
+
+const service = new Service();
+
 class Dashboard extends Component{
   constructor(props){
     super(props)
@@ -11,7 +15,12 @@ class Dashboard extends Component{
        selectedBook:"",
        details:false,
        open:false,
+       cartbooks:""
     }
+}
+
+componentDidMount(){
+  this.getCartbookLength();
 }
 
 onClickBook=(value)=>{
@@ -31,10 +40,17 @@ openCart=()=>{
 //   }
 // }
 
+getCartbookLength=()=>{
+  service.getCartItems().then((res) => {
+    console.log(res);
+    this.setState({cartbooks: res.data.result });
+  })
+}
+
 render() {
   return (
     <div>
-        <Header openCart={this.openCart}/>
+        <Header openCart={this.openCart} cartbooks={this.state.cartbooks.length} />
         {this.state.selectedBook ? <BookDetails displayDetail={this.state.selectedBook}/>
           :<DisplayBook bookDetail={this.onClickBook}/>
         }

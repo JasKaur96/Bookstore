@@ -6,6 +6,7 @@ import AddCircleOutlineTwoToneIcon from '@material-ui/icons/AddCircleOutlineTwoT
 import RemoveCircleOutlineTwoToneIcon from '@material-ui/icons/RemoveCircleOutlineTwoTone';
 import { TextField, Button } from '@material-ui/core';
 import Dont from "../../Assets/book.png";
+import Header from '../../Components/Header/Header';
 // import Footer from '../Footer/Footer';
 
 const service = new Service();
@@ -90,6 +91,7 @@ class CartBag extends React.Component {
     componentDidMount() {
       this.getCart();
     } 
+    
     changeState = (e) => {
         let name = e.target.name;
         let value = e.target.value;
@@ -199,7 +201,7 @@ class CartBag extends React.Component {
     }
     render() {
         return (<>
-            <Appbar show={false} />
+            <Header cartbooks={this.state._cartbooks.length} show={false} />
 
             <div className="cartcontent"> <span className="Home">Home/MyCart</span>
             <br/>

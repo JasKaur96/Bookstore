@@ -24,7 +24,7 @@ const styles = theme => ({
 class DisplayBook extends Component {
     constructor(props) {
         super(props);
-        this.state = ({
+        this.state = ({ 
             sort: "",
             _books: [],
             _cartBooks: [],

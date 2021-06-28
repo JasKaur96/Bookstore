@@ -31,6 +31,7 @@ class BookDetail extends Component {
         inputQuantity: true,
         getCart: [],
         cartId:"",
+        loader: false
     }
 }
 
@@ -53,19 +54,24 @@ handleClose = (event, reason) => {
     let data = { 
       isCart: true
     }
+
+    this.handleToggle();
     let token = localStorage.getItem('Token')
     console.log(value);
     service.addToCartBook(data, value._id, token).then((res) => {
       console.log(value);
       console.log(res);
+      // this.getCart();
       this.setState({ cartId: value._id })
       console.log("cartId", this.state.cartId);
+      this.handleClose();
     })
       .catch((err) => {
         console.log(err);
-      })
+        this.handleClose();
+    })
   }
-  
+
 getCart=()=>{
   service.getCartItems().then((res) => {
     console.log("getCart", res);
@@ -96,12 +102,13 @@ getCart=()=>{
     return (
       <>
       {this.state.loader ?
-                    <Backdrop
-                    className={classes.backdrop}
-                    open={this.state.loader}
-                    onClick={this.handleClose}>
+            <Backdrop
+              className={classes.backdrop}
+              open={this.state.loader}
+              onClick={this.handleClose}>
           <CircularProgress color="inherit" />
         </Backdrop>:<>
+
         <div className="mainContainer">
           <div className="container">
             <div className="imgs-container">
@@ -123,7 +130,7 @@ getCart=()=>{
               >
                 Add To Bag
               </button> : <><div className="addOrRemove">
-               <button className="addbtn">+</button>
+               <button className="addbtn" >+</button>
                 <button className="addbtn">-</button>
               </div></>
               }

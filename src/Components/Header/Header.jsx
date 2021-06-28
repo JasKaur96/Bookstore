@@ -5,10 +5,18 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import { BrowserRouter as Router, Route, Link, Navlink, Switch, BrowserRouter,Redirect } from 'react-router-dom';
+import StyledBadge from '@material-ui/core/Badge'
+
+// const styles = theme => ({
+//   badge: {
+//     // : theme.zIndex.drawer + 1,
+//     color: 'white',
+//   },
+// });
 
 export default class Header extends Component {
 
-  onClickOpen = () =>{
+  onClickOpen = () =>{ 
     this.props.openCart();
   }
 
@@ -30,7 +38,11 @@ export default class Header extends Component {
                 Profile
                 </div>              
                 <div className="cart">
-                  <ShoppingCartOutlinedIcon className="carticon" onClick={this.onClickOpen} />
+                   {/* <IconButton aria-label="cart"> */}
+                    <StyledBadge badgeContent={this.props.cartbooks} color="white" >
+                      <ShoppingCartOutlinedIcon className="carticon" onClick={this.onClickOpen} />
+                    </StyledBadge>
+                  {/* </IconButton> */}
                     Cart
                 </div>             
               </div>
