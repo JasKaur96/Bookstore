@@ -11,7 +11,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Footer from '../Footer/Footer';
-
+ 
 const service = new UserService();
 
 const styles = theme => ({
@@ -81,7 +81,7 @@ class DisplayBook extends Component {
         this.handleToggle()
         service.getAllBooks().then((res) => {
             books = res.data.result;
-            // var book = this.storeBooks(books);
+            var book = this.storeBooks(books);
             this.setState({ _books: books });
             this.handleClose();
         }).catch((err) => {

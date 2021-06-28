@@ -5,6 +5,15 @@ import BookDetails from '../../Components/BookDetails/BookDetails';
 import { withRouter } from 'react-router';
 import Footer from '../../Components/Footer/Footer';
 import Service from '../../Services/BookService';
+import { connect } from 'react-redux';
+import {BOOK_SELECTED} from '../../Constants/constantsBook';
+
+const mapStateToProps = (state) => {
+    console.log("state",state.state.bookDetails);
+    return {
+        selectedBook:state.state.bookDetails
+    }
+}
 
 const service = new Service();
 
@@ -18,14 +27,18 @@ class Dashboard extends Component{
        cartbooks:""
     }
 }
-
+ 
 componentDidMount(){
   this.getCartbookLength();
 }
 
-onClickBook=(value)=>{
-    this.setState({selectedBook:value})
-    console.log(this.state.selectedBook,"selected book");
+onClickBook=(book)=>{
+    // this.setState({selectedBook:value})
+    // console.log(this.state.selectedBook,"selected book");
+      this.setState({ selectedBook: book })
+      console.log(book);
+      this.props.dispatch({type:BOOK_SELECTED , value:book})
+      this.props.history.push('/bookdetails')  
 }
 
 openCart=()=>{
@@ -51,14 +64,16 @@ render() {
   return (
     <div>
         <Header openCart={this.openCart} cartbooks={this.state.cartbooks.length} />
-        {this.state.selectedBook ? <BookDetails displayDetail={this.state.selectedBook}/>
+        {/* {this.state.selectedBook ? <BookDetails displayDetail={this.state.selectedBook}/>
           :<DisplayBook bookDetail={this.onClickBook}/>
-        }
+        } */}
+
+        <DisplayBook bookDetail={this.onClickBook} />
+       
         <Footer/>
     </div>
   )
   }
 }
 
-export default withRouter(Dashboard);
-  
+export default connect(mapStateToProps) (withRouter(Dashboard))

@@ -15,6 +15,15 @@ import { withRouter } from 'react-router';
 import { withStyles } from "@material-ui/core/styles";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { connect } from 'react-redux';
+import Header from '../Header/Header'
+
+const mapStateToProps = (state) => {
+  console.log("state",state.bookDetails);
+  return {
+      selectedBook:state.bookDetails
+  }
+}
 
 const service = new UserService();
 const styles = theme => ({
@@ -98,7 +107,7 @@ getCart=()=>{
 
   render() {
     const {classes} = this.props;
-    console.log(this.props.displayDetail, "display details");
+    console.log(this.props.selectedBook, "display details");
     return (
       <>
       {this.state.loader ?
@@ -108,7 +117,7 @@ getCart=()=>{
               onClick={this.handleClose}>
           <CircularProgress color="inherit" />
         </Backdrop>:<>
-
+        {/* <Header /> */}
         <div className="mainContainer">
           <div className="container">
             <div className="imgs-container">
@@ -126,7 +135,7 @@ getCart=()=>{
             </div>
             <div className="wishlist">
               {this.state.inputQuantity ? <button
-                className="addtobag" onClick={() => this.addedtoCart(this.props.displayDetail)}
+                className="addtobag" onClick={() => this.addedtoCart(this.props.selectedBook)}
               >
                 Add To Bag
               </button> : <><div className="addOrRemove">
@@ -144,12 +153,12 @@ getCart=()=>{
             <div className="bookdetail">
               <div className="cardcontainer">
                 <div className="title">
-                  {this.props.displayDetail.bookName}
+                  {this.props.selectedBook.bookName}
                 </div>
                 <div className="author">
                   <span className="byauthor">by</span>
                   <span className="authorname">
-                    {this.props.displayDetail.author}
+                    {this.props.selectedBook.author}
                   </span>
                 </div>
                 <div className="card-rating">
@@ -168,7 +177,7 @@ getCart=()=>{
                   </span>
                   <span className="price">
                     <strike>
-                      {this.props.displayDetail.price}
+                      {this.props.selectedBook.price}
                     </strike>
                   </span>
                 </div>
@@ -211,4 +220,4 @@ getCart=()=>{
   }
 }
 
-export default withRouter(BookDetail)
+export default connect(mapStateToProps)(withStyles(styles)(BookDetail))
