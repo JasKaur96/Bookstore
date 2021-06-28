@@ -47,6 +47,13 @@
     margin-top: 35px;
     border-radius: 3px;
     opacity: 1;
+    cursor: pointer;
+}
+.showbooks:hover {
+  
+    box-shadow: 0px 3px 5px 3px rgba(101, 107, 112, 0.2);;
+   
+    cursor: pointer;
 }
 .bookimage {
     display: flex;
@@ -138,5 +145,7 @@
     color: white;
 }
 .paginationBlock {
-    margin-left: 38%;
+    margin-left: 28%;
+    margin-top: 47%;
+    position:absolute;
 }

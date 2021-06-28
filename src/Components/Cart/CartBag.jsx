@@ -93,7 +93,7 @@ class CartBag extends React.Component {
             this.setState({ _cartbooks: res.data.result });
             // console.log(JSON.stringify(this.state._cartbooks));
         })
-    }
+    } 
     changeState = (e) => {
         let name = e.target.name;
         let value = e.target.value;
@@ -190,9 +190,9 @@ class CartBag extends React.Component {
             <Appbar show={false} />
 
             <div className="cartcontent"> <span className="Home">Home/MyCart</span>
+            <br/>
                 <div className="cartitems box">
                     <div className="mycart"> My Cart({this.state._cartbooks.length})</div>
-
                     {this.state._cartbooks.map((val, index) => {
                         return (<div className="part1">
                             <div className="container">  <div>
@@ -203,15 +203,14 @@ class CartBag extends React.Component {
                                     <div className="author"> by{val.product_id.author}</div>
                                     <div className="price">Rs.{val.product_id.price}</div>
                                     <div className="inlineicons">
-                                        <AddCircleOutlineTwoToneIcon style={{ opacity: 0.4 }} onClick={() => this.increment(val.product_id._id, val.quantityToBuy)} />
+                                        <AddCircleOutlineTwoToneIcon style={{ opacity: 0.4,cursor:"pointer" }} onClick={()=>this.increment(val.product_id._id, val.quantityToBuy)} />
                                         <div className="quantity">{val.quantityToBuy}</div>
-                                        <RemoveCircleOutlineTwoToneIcon style={{ opacity: 0.4 }} onClick={() => this.decrement(val.product_id._id, val.quantityToBuy)} />
+                                        <RemoveCircleOutlineTwoToneIcon style={{ opacity: 0.4, cursor:"pointer" }} onClick={()=>this.decrement(val.product_id._id, val.quantityToBuy)} />
                                         <div className="remove" onClick={() => this.removeCartId(val._id)}>Remove</div>
-
                                     </div>
-                                </div></div>
-                            {this.state._cartbooks.length - 1 === index
-                                ? this.state.show ? null : <Button variant="contained" color="primary" onClick={this.showCD}>
+                                </div>
+                            </div>
+                            {this.state._cartbooks.length - 1 === index ? this.state.show ? null : <Button variant="contained" color="primary" onClick={this.showCD}>
                                     Place Order</Button> : null}
                         </div>)
 
@@ -277,7 +276,7 @@ class CartBag extends React.Component {
                         : null}</div>
 
                 <div className="cartitems box">
-                    <div className="mycart"> Ordersummary</div>
+                    <div className=""> Ordersummary</div>
                     {this.state.showOs ?
                         <> {this.state._cartbooks.map((val, index) => {
                             return (<div className="part1">

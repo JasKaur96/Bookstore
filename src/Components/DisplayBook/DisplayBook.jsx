@@ -10,6 +10,7 @@ import PaginationBar from '../Pagination/Pagination';
 import { withStyles } from "@material-ui/core/styles";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Footer from '../Footer/Footer';
 
 const service = new UserService();
 
@@ -30,37 +31,31 @@ class DisplayBook extends Component {
             postsPerPage: "8",
             currentPage: "1",
             books: [],
-            checkbook: false,
+            // checkbook: false,
             loader:false,
             show:true
         })
     }
 
     componentDidMount() {
-        
         this.getAllBooks();
     } 
  
     bookDetails = (e,value) =>{
         console.log("Book next page",this.state._books)
         console.log("Book page value",value)
-        // this.props.onClickBook(value);
-        // this.props.selectedNext(this.state._books)
         this.props.bookDetail(value);
     } 
 
-    changepage = (e, newpage) => {
-      
+    storeBooks = (books) => {
+        this.books = books;
+        return this.books;
+    }
+
+    changepage = (e, newpage) => {      
         console.log(e.target.value);
         this.setState({ currentPage: newpage });
     };
-
-    storeBooks = (books) => {
-        this.books = books;
-        console.log("storBooks", this.books)
-
-        return this.books;
-    }
 
     getBooks = () => {
         return this.books;
@@ -69,6 +64,7 @@ class DisplayBook extends Component {
     handleChange = (event) => {
         this.setState({ sort: event.target.value });
     };
+
     handleToggle = () => {
         this.setState({loader:!this.state.loader});
     };
@@ -85,9 +81,9 @@ class DisplayBook extends Component {
         this.handleToggle()
         service.getAllBooks().then((res) => {
             books = res.data.result;
-            var book = this.storeBooks(books);
-            this.setState({ _books: book });
-           this.handleClose();
+            // var book = this.storeBooks(books);
+            this.setState({ _books: books });
+            this.handleClose();
         }).catch((err) => {
             console.log(err);
             this.handleClose();
@@ -98,24 +94,23 @@ class DisplayBook extends Component {
         this.setState({
             _books: this.getBooks(),
         })
-        console.log("get Books",this.state._books)
+        console.log("Get Books method",this.state._books)
     }
 
     render() {
         const LastBook = this.state.currentPage * this.state.postsPerPage;
         const FirstBook = LastBook - this.state.postsPerPage;
-        console.log(this.state._books);
         const currentBooks = this.state._books.slice(FirstBook, LastBook);
         const {classes} = this.props;
 
         return (
-            <>    {this.state.loader ?
+            <>  {this.state.loader ?
                     <Backdrop
-                    className={classes.backdrop}
-                    open={this.state.loader}
-                    onClick={this.handleClose}>
-                    <CircularProgress color="inherit" />
-                </Backdrop>:<>
+                        className={classes.backdrop}
+                        open={this.state.loader}
+                        onClick={this.handleClose}>
+                        <CircularProgress color="inherit" />
+                    </Backdrop>:<>
 
                 <div className="usercontent">
                     <div className="inlineheader">
@@ -125,13 +120,7 @@ class DisplayBook extends Component {
                         <div className="select">
                             <FormControl variant="outlined" >
                                 <InputLabel className="dropbox-content">sort by relevance</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-outlined-label"
-                                    className="dropbox"
-                                    value={this.state.sort}
-                                    onChange={this.handleChange}
-                                    label="Age"
-                                >
+                                <Select labelId="demo-simple-select-outlined-label" className="dropbox" value={this.state.sort} onChange={this.handleChange} >
                                     <MenuItem value="">
                                         <em>None</em>
                                     </MenuItem>
@@ -142,8 +131,8 @@ class DisplayBook extends Component {
                         </div>
                     </div>
                     <div className="books">
-                        {currentBooks.map((book, index) => {
-                            return <div className="showbooks"  onClick={(e)=>this.bookDetails(e,book)}>
+                        {currentBooks.map((book) => {
+                            return <div className="showbooks" onClick={(e)=>this.bookDetails(e,book)}>
                                 <div className="bookimage">
                                     <img src={book1} alt=""  />
                                 </div>
@@ -156,7 +145,7 @@ class DisplayBook extends Component {
                                     <div className="price"><strong>Rs.{book.price}</strong></div>
                                 </div>
                             </div>
-                        })
+                            })
                         }
                     </div>
 
@@ -167,7 +156,7 @@ class DisplayBook extends Component {
                     />
 
                 </div></>}
-            
+            {/* <Footer/> */}
             </>
         )
     }

@@ -16,27 +16,24 @@ export default class Header extends Component {
         return (
             <>
             <div className="appbar"> 
-            <div>
-            <img src={Book}  alt=""/>
-              <p><Link to="/home" style={{listStyleType:"none",color:'white',textDecoration:'none'}}>Bookstore</Link></p> 
-             
-              <div className="input">
-               <SearchOutlinedIcon className="searchicon" />   
-              <input type="text" placeholder="Search" />
-              </div>
+              <div>
+                <img src={Book}  alt=""/>
+                  <p><Link to="/home" style={{listStyleType:"none",color:'white',textDecoration:'none'}}>Bookstore</Link></p>               
+                <div className="input">
+                  <SearchOutlinedIcon className="searchicon" />   
+                <input type="text" placeholder="Search" />
+                </div>
               </div> 
               <div>
-              <div className="pro">
-               <PermIdentityIcon className="proicon" />
-               Profile
+                <div className="pro">
+                <PermIdentityIcon className="proicon" />
+                Profile
+                </div>              
+                <div className="cart">
+                  <ShoppingCartOutlinedIcon className="carticon" onClick={this.onClickOpen} />
+                    Cart
+                </div>             
               </div>
-              
-              <div className="cart">
-                <ShoppingCartOutlinedIcon className="carticon" onClick={this.onClickOpen} />
-                  Cart
-              </div>
-             
-            </div>
             </div>
             </>
         )

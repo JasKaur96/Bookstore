@@ -22,7 +22,7 @@ export default class OrderSucess extends React.Component {
                         <img src={Order} alt="" />
                     </div>
                     <div className="texts">
-                        hurray!!! your order is confirmed the order  id is #12345 save the 
+                        Hurray!!! your order is confirmed the order  id is #12345 save the 
                         order id for further communication   
                     </div>
                      <div className="table">
@@ -34,8 +34,8 @@ export default class OrderSucess extends React.Component {
                             </tr>
                             <tr>
                                 <td>admin@bookstore.com</td>
-                                <td>#91 9916522077</td>
-                                <td>Bangalore, Karnataka </td>
+                                <td>#91 9963254110</td>
+                                <td>Bangalore, Karnataka</td>
                             </tr>
                         </table>
                     </div>

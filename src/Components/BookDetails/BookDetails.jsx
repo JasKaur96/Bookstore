@@ -11,15 +11,26 @@ import Paginations from "@material-ui/lab/Pagination";
 import PaginationBar from '../Pagination/Pagination';
 import "../../CSS/BookDetail.css"
 import CustomerFeedback from "../FeedBack/FeedBack";
+import { withRouter } from 'react-router';
+import { withStyles } from "@material-ui/core/styles";
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const service = new UserService();
-export default class BookDetail extends Component {
+const styles = theme => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
+});
+
+class BookDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
         inputQuantity: true,
         getCart: [],
-        cartId:""
+        cartId:"",
     }
 }
 
@@ -32,10 +43,19 @@ export default class BookDetail extends Component {
       console.log("getCartdata", this.state.getCart);
     })
   }
+  handleToggle = () => {
+    this.setState({loader:!this.state.loader});
+};
 
+handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    this.setState({loader:false});
+};
   addedtoCart = (value) => {
     this.setState({ inputQuantity: !this.state.inputQuantity })
-    let data = {
+    let data = { 
       isCart: true
     }
     let token = localStorage.getItem('Token')
@@ -65,10 +85,19 @@ export default class BookDetail extends Component {
       console.log(err);
     })
   }
+
   render() {
+    const {classes} = this.props;
     console.log(this.props.displayDetail, "display details");
     return (
       <>
+      {this.state.loader ?
+                    <Backdrop
+                    className={classes.backdrop}
+                    open={this.state.loader}
+                    onClick={this.handleClose}>
+          <CircularProgress color="inherit" />
+        </Backdrop>:<>
         <div className="mainContainer">
           <div className="container">
             <div className="imgs-container">
@@ -114,7 +143,7 @@ export default class BookDetail extends Component {
                 </div>
                 <div className="card-rating">
                   <div className="star">
-                    <div className="number">4.5</div>
+                    <div className="number">4.5 &#9733;</div>
                     <div className="rating-star">
                       <i class="zmdi zmdi-star"></i>
                     </div>
@@ -165,7 +194,10 @@ export default class BookDetail extends Component {
             </div>
           </div>
         </div>
+        </>}
       </>
     );
   }
 }
+
+export default withRouter(BookDetail)

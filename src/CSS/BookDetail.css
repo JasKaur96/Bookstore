@@ -179,7 +179,10 @@
     border-radius: 2px;
 }
 .number{
-
+    display: flex;
+    justify-content: center;
+    align-self: center
+    ;
 }
 .rating-star{
     margin-left: 8%;
