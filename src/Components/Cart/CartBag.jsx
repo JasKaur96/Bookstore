@@ -88,11 +88,7 @@ class CartBag extends React.Component {
     }
 
     componentDidMount() {
-        service.getCartItems().then((res) => {
-            console.log(res);
-            this.setState({ _cartbooks: res.data.result });
-            // console.log(JSON.stringify(this.state._cartbooks));
-        })
+      this.getCart();
     } 
     changeState = (e) => {
         let name = e.target.name;
@@ -125,7 +121,14 @@ class CartBag extends React.Component {
             this.removeCartId(val._id);
         })
     }
-    
+    getCart(){
+        service.getCartItems().then((res) => {
+            console.log(res);
+            this.setState({ _cartbooks: res.data.result });
+            // console.log(JSON.stringify(this.state._cartbooks));
+        })
+    }
+
     increment = (productid, quantity) => {
         let data = {
             "quantityToBuy": quantity + 1
@@ -133,10 +136,29 @@ class CartBag extends React.Component {
         console.log(data);
         console.log("Quantity",data.quantityToBuy);
         service.cartIncrementDecrement(data, productid).then((res) => {
+            this.getCart();
             console.log(res);
         }).catch((err) => {
             console.log(err);
         })
+    }
+
+    decrement = (productid, quantity) => {
+        let data = {
+            "quantityToBuy": quantity - 1
+        }
+        if(data.quantityToBuy > 1){
+            service.cartIncrementDecrement(data, productid).then((res) => {
+                console.log(res);
+                this.getCart();
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
+        else{
+            console.log("Out of Stock!")
+        }
+       
     }
 
     changeStates = (e) => {
@@ -145,16 +167,6 @@ class CartBag extends React.Component {
         this.setState({ [name]: value });
     }
 
-    decrement = (productid, quantity) => {
-        let data = {
-            "quantityToBuy": quantity - 1
-        }
-        service.cartIncrementDecrement(data, productid).then((res) => {
-            console.log(res);
-        }).catch((err) => {
-            console.log(err);
-        })
-    }
     submitUserDetails = () => {
         if (this.validationCheck()) {
             let data = {
@@ -203,9 +215,9 @@ class CartBag extends React.Component {
                                     <div className="author"> by{val.product_id.author}</div>
                                     <div className="price">Rs.{val.product_id.price}</div>
                                     <div className="inlineicons">
-                                        <AddCircleOutlineTwoToneIcon style={{ opacity: 0.4,cursor:"pointer" }} onClick={()=>this.increment(val.product_id._id, val.quantityToBuy)} />
+                                        <AddCircleOutlineTwoToneIcon style={{ opacity: 0.4,cursor:"pointer"}} onClick={()=>this.increment(val._id, val.quantityToBuy)} />
                                         <div className="quantity">{val.quantityToBuy}</div>
-                                        <RemoveCircleOutlineTwoToneIcon style={{ opacity: 0.4, cursor:"pointer" }} onClick={()=>this.decrement(val.product_id._id, val.quantityToBuy)} />
+                                        <RemoveCircleOutlineTwoToneIcon style={{ opacity: 0.4, cursor:"pointer"}} onClick={()=>this.decrement(val._id, val.quantityToBuy)} />
                                         <div className="remove" onClick={() => this.removeCartId(val._id)}>Remove</div>
                                     </div>
                                 </div>

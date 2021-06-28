@@ -35,13 +35,7 @@ class BookDetail extends Component {
 }
 
   componentDidMount() {
-    service.getCartItems().then((res) => {
-      console.log("getCart", res);
-      // if(this.state.cartId === res.data.result.product_id._id){
-      this.setState({ getCart: res.data.result });
-      // }
-      console.log("getCartdata", this.state.getCart);
-    })
+    this.getCart();
   }
   handleToggle = () => {
     this.setState({loader:!this.state.loader});
@@ -53,6 +47,7 @@ handleClose = (event, reason) => {
     }
     this.setState({loader:false});
 };
+
   addedtoCart = (value) => {
     this.setState({ inputQuantity: !this.state.inputQuantity })
     let data = { 
@@ -70,17 +65,26 @@ handleClose = (event, reason) => {
         console.log(err);
       })
   }
+  
+getCart=()=>{
+  service.getCartItems().then((res) => {
+    console.log("getCart", res);
+    // if(this.state.cartId === res.data.result.product_id._id){
+    this.setState({ getCart: res.data.result });
+    // }
+    console.log("getCartdata", this.state.getCart);
+  })
+}
 
   increaseBook = (quantity, productid) => {
     console.log("quantity", quantity);
-    // this.componentDidMount();
     let data = {
       "quantityToBuy": quantity + 1
     }
     console.log(data, productid);
     service.cartQuantity(data, productid).then((res) => {
       console.log(res);
-      // props.get();
+      this.getCart();
     }).catch((err) => {
       console.log(err);
     })
