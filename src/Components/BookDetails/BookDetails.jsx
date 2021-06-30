@@ -117,7 +117,7 @@ getCart=()=>{
               onClick={this.handleClose}>
           <CircularProgress color="inherit" />
         </Backdrop>:<>
-        {/* <Header /> */}
+        <Header />
         <div className="mainContainer">
           <div className="container">
             <div className="imgs-container">
@@ -134,18 +134,17 @@ getCart=()=>{
               </div>
             </div>
             <div className="wishlist">
-              {this.state.inputQuantity ? <button
-                className="addtobag" onClick={() => this.addedtoCart(this.props.selectedBook)}
-              >
-                Add To Bag
-              </button> : <><div className="addOrRemove">
-               <button className="addbtn" >+</button>
-                <button className="addbtn">-</button>
+              {this.state.inputQuantity ?<> <button className="addtobag" onClick={() => this.addedtoCart(this.props.selectedBook)}
+              >Add To Bag
+              </button>  <button className="addwishlist">
+                <i class="zmdi zmdi-favorite"></i> <span>WishList</span>
+              </button></>: <><div className="addOrRemove">
+               {/* <button className="addbtn" >+</button>
+                <button className="addbtn">-</button> */}
+                <button className="addedtobag" >Added To Bag</button>
               </div></>
               }
-              <button className="addwishlist">
-                <i class="zmdi zmdi-favorite"></i> <span>WishList</span>
-              </button>
+             
             </div>
           </div>
 

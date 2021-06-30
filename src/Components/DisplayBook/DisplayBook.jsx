@@ -76,6 +76,30 @@ class DisplayBook extends Component {
         this.setState({loader:false});
     };
 
+    sort = (e) =>{
+        console.log("Sort");
+        let sortData = [...this.state._books].sort(function(a,b){
+            return b.price-a.price;
+        })
+        if(e.target.value === "dsec"){           
+            this.setState({_books : sortData})            
+        }
+        else if(e.target.value === "asec"){
+            this.setState({_books : sortData.reverse()}) 
+        }else if(e.target.value === "alp-asec"){
+            let data = [...this.state._books].sort(function(a,b){
+                // console.log("alpha sort  b ", b.bookName)
+                if(a.bookName < b.bookName){
+                    // console.log("alpha sort a", a.bookName) 
+                    console.log("alpha sort  b ", b.bookName)
+                    return -1;
+                }
+                return 0;
+            })
+            this.setState({_books : data})
+        }
+    }
+
     getAllBooks = () => {
         var books = [];
         this.handleToggle()
@@ -118,16 +142,22 @@ class DisplayBook extends Component {
                             Books
                         </div>
                         <div className="select">
-                            <FormControl variant="outlined" >
+                            {/* <FormControl variant="outlined" >
                                 <InputLabel className="dropbox-content">sort by relevance</InputLabel>
                                 <Select labelId="demo-simple-select-outlined-label" className="dropbox" value={this.state.sort} onChange={this.handleChange} >
                                     <MenuItem value="">
                                         <em>None</em>
                                     </MenuItem>
-                                    <MenuItem value={10}>Price : low to high</MenuItem>
+                                    <MenuItem value={10} onClick={this.sortLowToHigh}>Price : low to high</MenuItem>
                                     <MenuItem value={20}>Price : high to low</MenuItem>
                                 </Select>
-                            </FormControl>
+                            </FormControl> */}
+                            <select  className="dropbox-content" style={{ width: '157px', height: '47px' }} onChange={(e) => this.sort(e)} >
+                                <option selected >Sort by relevance</option>
+                                <option value="dsec" >Price: high to low</option>
+                                <option value="asec"  >Price: low to high</option>
+                                <option value="alp-asec" >Sort By: (A-Z)</option>
+                            </select>
                         </div>
                     </div>
                     <div className="books">
@@ -155,8 +185,10 @@ class DisplayBook extends Component {
                         changepage={this.changepage}
                     />
 
-                </div></>}
-            {/* <Footer/> */}
+                </div>
+                <Footer/>
+                </>}
+      
             </>
         )
     }

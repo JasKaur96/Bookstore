@@ -87,6 +87,18 @@
     border-radius: 1px;
     cursor: pointer;
 }
+.addedtobag{
+    border : none;
+    outline: none;
+    color : #fff;
+
+    background-color: #1e53a1;
+    height : 40px;
+    width :370px;
+    border-radius: 1px;
+    cursor: pointer;
+}
+
 .addOrRemove{
     height : 80%;
     width :40%;
@@ -96,6 +108,7 @@
     align-items: center;
     justify-content: space-around;
 }
+
 .addbtn{
     width : 30%;
     height : 100%;

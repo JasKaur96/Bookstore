@@ -70,7 +70,7 @@ render() {
 
         <DisplayBook bookDetail={this.onClickBook} />
        
-        <Footer/>
+        {/* <Footer/> */}
     </div>
   )
   }

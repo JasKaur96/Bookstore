@@ -185,7 +185,7 @@ class Sign extends Component {
             }).catch((error) => {
                 console.log(error);
                 this.handleClose();
-                this.setState({ snackType: "error", snackMessage: "Registeration Failed", open: true, setOpen: true })
+                // this.setState({ snackType: "error", snackMessage: "Registeration Failed", open: true, setOpen: true })
             })
         }
     }

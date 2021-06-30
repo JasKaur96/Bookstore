@@ -7,6 +7,7 @@ import RemoveCircleOutlineTwoToneIcon from '@material-ui/icons/RemoveCircleOutli
 import { TextField, Button } from '@material-ui/core';
 import Dont from "../../Assets/book.png";
 import Header from '../../Components/Header/Header';
+import Footer from '../Footer/Footer';
 // import Footer from '../Footer/Footer';
 
 const service = new Service();
@@ -149,7 +150,7 @@ class CartBag extends React.Component {
         let data = {
             "quantityToBuy": quantity - 1
         }
-        if(data.quantityToBuy > 1){
+        if(data.quantityToBuy >= 1){
             service.cartIncrementDecrement(data, productid).then((res) => {
                 console.log(res);
                 this.getCart();
@@ -215,7 +216,7 @@ class CartBag extends React.Component {
                                 <div className="items">
                                     <div>{val.product_id.bookName}</div>
                                     <div className="author"> by{val.product_id.author}</div>
-                                    <div className="price">Rs.{val.product_id.price}</div>
+                                    <div className="price">Rs.{val.product_id.price * val.quantityToBuy}</div>
                                     <div className="inlineicons">
                                         <AddCircleOutlineTwoToneIcon style={{ opacity: 0.4,cursor:"pointer"}} onClick={()=>this.increment(val._id, val.quantityToBuy)} />
                                         <div className="quantity">{val.quantityToBuy}</div>
@@ -300,7 +301,7 @@ class CartBag extends React.Component {
                                     <div className="items">
                                         <div>{val.product_id.bookName}</div>
                                         <div className="author"> by{val.product_id.author}</div>
-                                        <div className="price">Rs.{val.product_id.price}</div>
+                                        <div className="price">Rs.{val.product_id.price * val.quantityToBuy}</div>
 
                                     </div></div>
                                 {this.state._cartbooks.length - 1 === index
@@ -309,7 +310,7 @@ class CartBag extends React.Component {
                             </div>)
 
                         })
-                        } </> : null}
+                        }<div><br></br></div> </> : null}
                 </div>
 
             </div>
