@@ -6,13 +6,15 @@ import { withRouter } from 'react-router';
 import Footer from '../../Components/Footer/Footer';
 import Service from '../../Services/BookService';
 import { connect } from 'react-redux';
-import {BOOK_SELECTED, CART_COUNT} from '../../Constants/constantsBook';
+import {BOOK_SELECTED, CART_COUNT, CART_OPEN, SEARCHED_BOOK} from '../../Constants/constantsBook';
 
 const mapStateToProps = (state) => {
     console.log("state",state.state.bookDetails);
     return {
         selectedBook:state.state.bookDetails,
-        cart_count:state.state.cart_count
+        cart_count:state.state.cart_count,
+        open: state.state.open,
+        SearchedData:state.state.searchedBook,
     }
 }
 
@@ -49,15 +51,17 @@ onClickBook=(book)=>{
       this.props.history.push('/bookdetails')  
 }
 
-openCart=()=>{
-  this.setState({open: !this.state.open})
+openCart = ()=>{
+   this.setState({open: !this.state.open});
   console.log("dashboard",this.state.open);
+  this.props.dispatch({type:CART_OPEN , value:this.state.open});
   this.props.history.push("/cart")
 }
 
 getBook = (books) =>{
   this.setState({showBooks: books});
-  console.log("Get Books",books)
+  // this.props.dispatch({type:SEARCHED_BOOK , value:books});
+   console.log("Get Books",books)
 }
 
 getCartbookLength=()=>{
@@ -68,19 +72,18 @@ getCartbookLength=()=>{
   })
 }
 
-handleSearchNote = (value,status) => {
+handleSearchBook = (value,status) => {
   this.setState({search: value});
   console.log("Dashboard seaarch method",value);  
   this.setState({searchBook: status})
   console.log("search status",status)
-
-  this.filterSearchNote(value)
+  this.filterSearchBook(value)
 }
 
 
-filterSearchNote = (value)=>{   
+filterSearchBook = (value)=>{   
   var array = []
-  this.state.showBooks.filter(data => data.bookName.toLowerCase().includes(value.toLowerCase())).map((searchedData)=>{
+  this.state.showBooks.filter(data => data.bookName.toLowerCase().includes(value.toLowerCase()) || data.author.toLowerCase().includes(value.toLowerCase())).map((searchedData)=>{
       console.log("Filtered data : ", searchedData);
       array.push(searchedData);
       console.log("Array here", array)
@@ -94,11 +97,8 @@ filterSearchNote = (value)=>{
 render() {
   return (
     <div>
-        <Header openCart={this.openCart} handleSearchNote={this.handleSearchNote} searchBook={this.state.searchBook} cartbooks={this.state.cartbooks.length} />
-        {/* {this.state.selectedBook ? <BookDetails displayDetail={this.state.selectedBook}/>
-          :<DisplayBook bookDetail={this.onClickBook}/>
-        } */}
-
+        <Header openCart={this.openCart} handleSearchBook={this.handleSearchBook} searchBook={this.state.searchBook} cartbooks={this.state.cartbooks.length} />
+      
         <DisplayBook searchBook={this.state.searchBook} getBook={this.getBook} searchedData={this.state.SearchedData} search={this.state.search} bookDetail={this.onClickBook} />
        
         {/* <Footer/> */}

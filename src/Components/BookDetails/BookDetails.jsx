@@ -22,7 +22,9 @@ const mapStateToProps = (state) => {
   console.log("state",state.bookDetails, "/n count ", state.cart_count);
   return {
       selectedBook:state.bookDetails,
-      cart_count:state.cart_count
+      cart_count:state.cart_count,
+      open: state.open,
+      
   }
 }
 
@@ -119,7 +121,7 @@ getCart=()=>{
               onClick={this.handleClose}>
           <CircularProgress color="inherit" />
         </Backdrop>:<>
-        <Header cartbooks={this.props.cart_count}/>
+        <Header cartbooks={this.props.cart_count} openCart={this.props.open}/>
         <div className="mainContainer">
           <div className="container">
             <div className="imgs-container">

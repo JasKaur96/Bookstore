@@ -36,9 +36,8 @@ export default class Header extends Component {
     console.log("Search method",value)        
     this.setState({searchTerm: value})
     // this.setState({searchBook: false});
-    console.log("header value",this.props.searchBook)
-   
-    this.props.handleSearchNote(value,true)      
+    console.log("header value",this.props.searchBook)   
+    this.props.handleSearchBook(value,true)      
     console.log("Search term in search method",this.state.searchTerm)
 }
 

@@ -38,6 +38,7 @@ class DisplayBook extends Component {
         })
     }
 
+   
     componentDidMount() {
         this.getAllBooks();
     } 
@@ -91,7 +92,7 @@ class DisplayBook extends Component {
         }
         else if(e.target.value === "asec"){
             this.setState({_books : sortData.reverse()}) 
-        }else if(e.target.value === "alp-asec"){
+        }else if(e.target.value === "alpha"){
             let data = [...this.state._books].sort(function(a,b){
                 // console.log("alpha sort  b ", b.bookName)
                 if(a.bookName < b.bookName){
@@ -116,12 +117,11 @@ class DisplayBook extends Component {
         this.handleToggle()
         service.getAllBooks().then((res) => {
             books = res.data.result;
-            var book = this.storeBooks(books);            
+            var book = this.storeBooks(books);  
             this.setState({ _books: books });
             this.props.getBook(books);
             
             console.log("data",this.props.searchedData)
-            // this.setState({searchedbook: this.props.searchedData})
             
             this.handleClose();
         }).catch((err) => {
@@ -138,22 +138,23 @@ class DisplayBook extends Component {
         console.log("Get Books method",this.state._books)
     }
 
-    currentBooksToDisplay = (f,l) => {
-        if(this.props.searchBook === true ){
-            console.log("searched book")
-            this.setState({ searchedBook: this.props.searchedData})
-            return this.state.searchedBook.slice(f, l);            
-        }
-        else{
-            console.log("searched book else")
-            return this.state._books.slice(f, l);
-        }
-        // currentBooks = this.state._books.slice(FirstBook, LastBook);
-    }
+    // currentBooksToDisplay = (f,l) => {
+    //     if(this.props.searchBook === true ){
+    //         console.log("searched book")
+    //         this.setState({ _books: this.props.searchedData})
+    //         return this.state._books.slice(f, l);            
+    //     }
+    //     else{
+    //         console.log("searched book else")
+    //         return this.state._books.slice(f, l);
+    //     }
+    //     // currentBooks = this.state._books.slice(FirstBook, LastBook);
+    // }
+
     render() {
         const LastBook = this.state.currentPage * this.state.postsPerPage;
         const FirstBook = LastBook - this.state.postsPerPage;   
-        const currentBooks = this.currentBooksToDisplay(FirstBook, LastBook);
+        const currentBooks = this.props.searchBook? this.props.searchedData.slice(FirstBook, LastBook) : this.state._books.slice(FirstBook, LastBook);   
         const {classes} = this.props;
         console.log("Display data",this.props.searchedData)
         return (
@@ -171,21 +172,11 @@ class DisplayBook extends Component {
                             Books
                         </div>
                         <div className="select">
-                            {/* <FormControl variant="outlined" >
-                                <InputLabel className="dropbox-content">sort by relevance</InputLabel>
-                                <Select labelId="demo-simple-select-outlined-label" className="dropbox" value={this.state.sort} onChange={this.handleChange} >
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
-                                    <MenuItem value={10} onClick={this.sortLowToHigh}>Price : low to high</MenuItem>
-                                    <MenuItem value={20}>Price : high to low</MenuItem>
-                                </Select>
-                            </FormControl> */}
                             <select  className="dropbox-content" style={{ width: '157px', height: '47px' }} onChange={(e) => this.sort(e)} >
                                 <option selected >Sort by relevance</option>
                                 <option value="dsec" >Price: high to low</option>
                                 <option value="asec"  >Price: low to high</option>
-                                <option value="alp-asec" >Sort By: (A-Z)</option>
+                                <option value="alpha" >Sort By: (A-Z)</option>
                             </select>
                         </div>
                     </div>
