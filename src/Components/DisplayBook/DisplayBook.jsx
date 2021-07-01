@@ -31,7 +31,8 @@ class DisplayBook extends Component {
             postsPerPage: "8",
             currentPage: "1",
             books: [],
-            // checkbook: false,
+            searchedBook: [],
+            searchedData:[],
             loader:false,
             show:true
         })
@@ -48,7 +49,9 @@ class DisplayBook extends Component {
     } 
 
     storeBooks = (books) => {
+        console.log("StoreBooks");
         this.books = books;
+       
         return this.books;
     }
 
@@ -58,6 +61,8 @@ class DisplayBook extends Component {
     };
 
     getBooks = () => {
+        
+        console.log("getBooks");
         return this.books;
     }
 
@@ -96,17 +101,28 @@ class DisplayBook extends Component {
                 }
                 return 0;
             })
+            console.log("Sorted:",data)
             this.setState({_books : data})
         }
     }
-
+    search = () =>{
+         if(this.props.searchedData != []){
+            this.setState({ _books:this.props.searchedData});
+        }
+    
+    }
     getAllBooks = () => {
         var books = [];
         this.handleToggle()
         service.getAllBooks().then((res) => {
             books = res.data.result;
-            var book = this.storeBooks(books);
+            var book = this.storeBooks(books);            
             this.setState({ _books: books });
+            this.props.getBook(books);
+            
+            console.log("data",this.props.searchedData)
+            // this.setState({searchedbook: this.props.searchedData})
+            
             this.handleClose();
         }).catch((err) => {
             console.log(err);
@@ -118,15 +134,28 @@ class DisplayBook extends Component {
         this.setState({
             _books: this.getBooks(),
         })
+        
         console.log("Get Books method",this.state._books)
     }
 
+    currentBooksToDisplay = (f,l) => {
+        if(this.props.searchBook === true ){
+            console.log("searched book")
+            this.setState({ searchedBook: this.props.searchedData})
+            return this.state.searchedBook.slice(f, l);            
+        }
+        else{
+            console.log("searched book else")
+            return this.state._books.slice(f, l);
+        }
+        // currentBooks = this.state._books.slice(FirstBook, LastBook);
+    }
     render() {
         const LastBook = this.state.currentPage * this.state.postsPerPage;
-        const FirstBook = LastBook - this.state.postsPerPage;
-        const currentBooks = this.state._books.slice(FirstBook, LastBook);
+        const FirstBook = LastBook - this.state.postsPerPage;   
+        const currentBooks = this.currentBooksToDisplay(FirstBook, LastBook);
         const {classes} = this.props;
-
+        console.log("Display data",this.props.searchedData)
         return (
             <>  {this.state.loader ?
                     <Backdrop
@@ -161,6 +190,7 @@ class DisplayBook extends Component {
                         </div>
                     </div>
                     <div className="books">
+                   
                         {currentBooks.map((book) => {
                             return <div className="showbooks" onClick={(e)=>this.bookDetails(e,book)}>
                                 <div className="bookimage">

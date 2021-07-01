@@ -309,7 +309,7 @@ class CartBag extends React.Component {
                                         CHECKOUT </Button> : null}
                             </div>)
 
-                        })
+                        }) 
                         }<div><br></br></div> </> : null}
                 </div>
 

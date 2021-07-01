@@ -19,9 +19,10 @@ import { connect } from 'react-redux';
 import Header from '../Header/Header'
 
 const mapStateToProps = (state) => {
-  console.log("state",state.bookDetails);
+  console.log("state",state.bookDetails, "/n count ", state.cart_count);
   return {
-      selectedBook:state.bookDetails
+      selectedBook:state.bookDetails,
+      cart_count:state.cart_count
   }
 }
 
@@ -108,6 +109,7 @@ getCart=()=>{
   render() {
     const {classes} = this.props;
     console.log(this.props.selectedBook, "display details");
+    console.log(this.props.cart_count, "count of books");
     return (
       <>
       {this.state.loader ?
@@ -117,7 +119,7 @@ getCart=()=>{
               onClick={this.handleClose}>
           <CircularProgress color="inherit" />
         </Backdrop>:<>
-        <Header />
+        <Header cartbooks={this.props.cart_count}/>
         <div className="mainContainer">
           <div className="container">
             <div className="imgs-container">
@@ -148,7 +150,7 @@ getCart=()=>{
             </div>
           </div>
 
-          <div className="details">
+          <div className="details"> 
             <div className="bookdetail">
               <div className="cardcontainer">
                 <div className="title">

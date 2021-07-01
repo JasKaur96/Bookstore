@@ -15,10 +15,33 @@ import StyledBadge from '@material-ui/core/Badge'
 // });
 
 export default class Header extends Component {
+  constructor(props){
+    super(props)
+    this.state={ 
+      searchTerm:"",
+      // searchBook : true
+    }
+}
 
   onClickOpen = () =>{ 
     this.props.openCart();
   }
+  
+  searchBook =(e)=>{
+    // console.log("Headder search", e.target.value)
+    this.props.searchDataBook(e.target.value);
+  }
+
+  handleChange = (e,value) => {        
+    console.log("Search method",value)        
+    this.setState({searchTerm: value})
+    // this.setState({searchBook: false});
+    console.log("header value",this.props.searchBook)
+   
+    this.props.handleSearchNote(value,true)      
+    console.log("Search term in search method",this.state.searchTerm)
+}
+
 
     render() {
         return (
@@ -28,8 +51,8 @@ export default class Header extends Component {
                 <img src={Book}  alt=""/>
                   <p><Link to="/home" style={{listStyleType:"none",color:'white',textDecoration:'none'}}>Bookstore</Link></p>               
                 <div className="input">
-                  <SearchOutlinedIcon className="searchicon" />   
-                <input type="text" placeholder="Search" />
+                  <SearchOutlinedIcon className="searchicon"/>   
+                <input type="text" placeholder="Search"  onChange={(e)=>this.handleChange(e,e.target.value)}/>
                 </div>
               </div> 
               <div>
