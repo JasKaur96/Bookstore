@@ -39,8 +39,14 @@ export default class OrderSucess extends React.Component {
                             </tr>
                         </table>
                     </div>
+                    {/* <div>
                     <Button variant="contained" fullWidth className="continue-shop" onClick={this.goToDashboard}>CONTINUE SHOPPING</Button>
 
+                    </div> */}
+                    <div className="success-wrapper">
+                        <Button  variant="contained" className="continue-shop" onClick={this.goToDashboard}> CONTINUE SHOPPING </Button>
+                    </div>
+                  
                 </div> 
                      {/* <Footer /> */}
             </div>

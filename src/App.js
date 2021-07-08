@@ -8,7 +8,7 @@ import CartBag from './Components/Cart/CartBag';
 import OrderSucess from './Components/Order/Order';
 import BookDetails from './Components/BookDetails/BookDetails';
 import { Provider } from 'react-redux';
-import store from './Store'
+import store from '../src/Redux/Store/Store'
 
 // export default function App() {
 //   const Routing =()=>{
@@ -31,7 +31,7 @@ function App() {
               <ProtectedRoute exact path="/home" component={Dashboard} ></ProtectedRoute>         
               <Route path="/bookdetails" component={BookDetails}></Route> 
               <Route path="/cart" component={CartBag}></Route> 
-              <Route path="/ordersucess" component={OrderSucess}></Route> 
+              <Route path="/ordersuccess" component={OrderSucess}></Route> 
             </Switch>
           </div>
         </Router>

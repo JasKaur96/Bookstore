@@ -1,0 +1,64 @@
+.profile_main{
+    margin-left: 2%;
+    display: flex;
+    justify-content: center;
+    text-align: left;
+    flex-direction: column;
+}
+
+.profmaindiv p{
+    color: gray;
+    font-size: 15px;
+}
+
+.profile_btn{
+    cursor: pointer;
+    background-color: white;
+    border: 2px solid rgb(241, 133, 133);
+    color: rgb(235, 131, 131);
+    height: 32px;
+    width: 50%;
+    margin-top: 5px;
+}
+
+.line{
+    margin-top: 5%;
+    width: 90%;
+}
+
+.profstore{
+    cursor: pointer;
+    margin-left: 2%;
+    display: flex;
+    justify-content: flex-start;
+    text-align: left;
+    margin-top: 8%;
+}
+
+.profstore p{
+    margin-left: 7px;
+    color: gray;
+    font-size: 15px;
+}
+
+.profwish{
+    cursor: pointer;
+    margin-left: 2%;
+    display: flex;
+    justify-content: flex-start;
+    text-align: left;
+    margin-top:2%;
+}
+
+.profwish p{
+    margin-left: 7px;
+    color: gray;
+    font-size: 15px;
+}
+
+
+@media screen and (max-width: 360px){
+    .profile_main{
+        width:50%;
+    }
+}

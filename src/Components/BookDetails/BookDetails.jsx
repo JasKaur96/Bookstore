@@ -19,11 +19,13 @@ import { connect } from 'react-redux';
 import Header from '../Header/Header'
 
 const mapStateToProps = (state) => {
-  console.log("state",state.bookDetails);
+  console.log("state",state.bookDetails, "/n count ", state.cart_count);
   return {
-      selectedBook:state.bookDetails
+      selectedBook:state.bookDetails,
+      cart_count:state.cart_count,
+      open: state.open,      
   }
-}
+} 
 
 const service = new UserService();
 const styles = theme => ({
@@ -41,22 +43,23 @@ class BookDetail extends Component {
         getCart: [],
         cartId:"",
         loader: false
-    }
+    } 
 }
 
   componentDidMount() {
-    this.getCart();
+      this.getCart();
   }
-  handleToggle = () => {
-    this.setState({loader:!this.state.loader});
-};
 
-handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    this.setState({loader:false});
-};
+  handleToggle = () => {
+      this.setState({loader:!this.state.loader});
+  };
+
+  handleClose = (event, reason) => {
+      if (reason === "clickaway") {
+        return;
+      }
+      this.setState({loader:false});
+  };
 
   addedtoCart = (value) => {
     this.setState({ inputQuantity: !this.state.inputQuantity })
@@ -84,10 +87,7 @@ handleClose = (event, reason) => {
 getCart=()=>{
   service.getCartItems().then((res) => {
     console.log("getCart", res);
-    // if(this.state.cartId === res.data.result.product_id._id){
-    this.setState({ getCart: res.data.result });
-    // }
-    console.log("getCartdata", this.state.getCart);
+   this.setState({ getCart: res.data.result });
   })
 }
 
@@ -108,6 +108,7 @@ getCart=()=>{
   render() {
     const {classes} = this.props;
     console.log(this.props.selectedBook, "display details");
+    console.log(this.props.cart_count, "count of books");
     return (
       <>
       {this.state.loader ?
@@ -117,7 +118,7 @@ getCart=()=>{
               onClick={this.handleClose}>
           <CircularProgress color="inherit" />
         </Backdrop>:<>
-        <Header />
+        <Header cartbooks={this.props.cart_count} openCart={this.props.open}/>
         <div className="mainContainer">
           <div className="container">
             <div className="imgs-container">
@@ -136,9 +137,11 @@ getCart=()=>{
             <div className="wishlist">
               {this.state.inputQuantity ?<> <button className="addtobag" onClick={() => this.addedtoCart(this.props.selectedBook)}
               >Add To Bag
-              </button>  <button className="addwishlist">
+              </button> 
+               {/* <button className="addwishlist">
                 <i class="zmdi zmdi-favorite"></i> <span>WishList</span>
-              </button></>: <><div className="addOrRemove">
+              </button> */}
+              </>: <><div className="addOrRemove">
                {/* <button className="addbtn" >+</button>
                 <button className="addbtn">-</button> */}
                 <button className="addedtobag" >Added To Bag</button>
@@ -148,7 +151,7 @@ getCart=()=>{
             </div>
           </div>
 
-          <div className="details">
+          <div className="details"> 
             <div className="bookdetail">
               <div className="cardcontainer">
                 <div className="title">
@@ -162,7 +165,7 @@ getCart=()=>{
                 </div>
                 <div className="card-rating">
                   <div className="star">
-                    <div className="number">4.5 &#9733;</div>
+                    <div className="number"> 4.5 &#9733;</div>
                     <div className="rating-star">
                       <i class="zmdi zmdi-star"></i>
                     </div>
@@ -204,10 +207,10 @@ getCart=()=>{
               {" "}
               <hr></hr>
             </div>
-            <div className="customer-feedback-container-">
+            {/* <div className="customer-feedback-container-">
               <span className="feedback">Customer Feedback</span>
               <CustomerFeedback />
-            </div>
+            </div> */}
             <div className="reviews">
 
             </div>

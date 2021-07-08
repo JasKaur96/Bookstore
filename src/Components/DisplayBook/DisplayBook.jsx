@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,Profiler } from 'react';
 import './DispalyBook.css';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem'; 
@@ -11,7 +11,8 @@ import { withStyles } from "@material-ui/core/styles";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Footer from '../Footer/Footer';
- 
+import Header from '../Header/Header';
+
 const service = new UserService();
 
 const styles = theme => ({
@@ -31,12 +32,14 @@ class DisplayBook extends Component {
             postsPerPage: "8",
             currentPage: "1",
             books: [],
-            // checkbook: false,
+            searchedBook: [],
+            searchedData:[],
             loader:false,
             show:true
         })
     }
 
+   
     componentDidMount() {
         this.getAllBooks();
     } 
@@ -48,7 +51,9 @@ class DisplayBook extends Component {
     } 
 
     storeBooks = (books) => {
+        console.log("StoreBooks");
         this.books = books;
+       
         return this.books;
     }
 
@@ -58,6 +63,8 @@ class DisplayBook extends Component {
     };
 
     getBooks = () => {
+        
+        console.log("getBooks");
         return this.books;
     }
 
@@ -86,7 +93,7 @@ class DisplayBook extends Component {
         }
         else if(e.target.value === "asec"){
             this.setState({_books : sortData.reverse()}) 
-        }else if(e.target.value === "alp-asec"){
+        }else if(e.target.value === "alpha"){
             let data = [...this.state._books].sort(function(a,b){
                 // console.log("alpha sort  b ", b.bookName)
                 if(a.bookName < b.bookName){
@@ -96,17 +103,27 @@ class DisplayBook extends Component {
                 }
                 return 0;
             })
+            console.log("Sorted:",data)
             this.setState({_books : data})
         }
     }
-
+    search = () =>{
+         if(this.props.searchedData != []){
+            this.setState({ _books:this.props.searchedData});
+        }
+    
+    }
     getAllBooks = () => {
         var books = [];
         this.handleToggle()
         service.getAllBooks().then((res) => {
             books = res.data.result;
-            var book = this.storeBooks(books);
+            var book = this.storeBooks(books);  
             this.setState({ _books: books });
+            this.props.getBook(books);
+            
+            console.log("data",this.props.searchedData)
+            
             this.handleClose();
         }).catch((err) => {
             console.log(err);
@@ -120,13 +137,23 @@ class DisplayBook extends Component {
         })
         console.log("Get Books method",this.state._books)
     }
+    
+    profiler = (id,phase,actualDuration,baseDuration,startTime,commitTime,interactions) => {
+        console.log(`${id}`)
+        console.log(`phase:${phase}`);
+        console.log(`Actual time: ${actualDuration}`);
+        console.log(`Base time: ${baseDuration}`);
+        console.log(`Start time: ${startTime}`);
+        console.log(`Commit time: ${commitTime}`);
+        console.log(`Interactions: ${interactions}`);
+    }
 
     render() {
         const LastBook = this.state.currentPage * this.state.postsPerPage;
-        const FirstBook = LastBook - this.state.postsPerPage;
-        const currentBooks = this.state._books.slice(FirstBook, LastBook);
+        const FirstBook = LastBook - this.state.postsPerPage;   
+        const currentBooks = this.props.searchBook? this.props.searchedData.slice(FirstBook, LastBook) : this.state._books.slice(FirstBook, LastBook);   
         const {classes} = this.props;
-
+        console.log("Display data",this.props.searchedData)
         return (
             <>  {this.state.loader ?
                     <Backdrop
@@ -135,32 +162,23 @@ class DisplayBook extends Component {
                         onClick={this.handleClose}>
                         <CircularProgress color="inherit" />
                     </Backdrop>:<>
-
+                
                 <div className="usercontent">
                     <div className="inlineheader">
                         <div className="headers">
-                            Books
+                            Books <span> ({this.props.searchBook ?<>{this.props.searchedData.length} </>:<>{this.state._books.length}</>} Items)</span>
                         </div>
                         <div className="select">
-                            {/* <FormControl variant="outlined" >
-                                <InputLabel className="dropbox-content">sort by relevance</InputLabel>
-                                <Select labelId="demo-simple-select-outlined-label" className="dropbox" value={this.state.sort} onChange={this.handleChange} >
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
-                                    <MenuItem value={10} onClick={this.sortLowToHigh}>Price : low to high</MenuItem>
-                                    <MenuItem value={20}>Price : high to low</MenuItem>
-                                </Select>
-                            </FormControl> */}
-                            <select  className="dropbox-content" style={{ width: '157px', height: '47px' }} onChange={(e) => this.sort(e)} >
-                                <option selected >Sort by relevance</option>
-                                <option value="dsec" >Price: high to low</option>
-                                <option value="asec"  >Price: low to high</option>
-                                <option value="alp-asec" >Sort By: (A-Z)</option>
+                            <select  className="dropbox-content" onChange={(e) => this.sort(e)} >
+                                <option selected >  Sort by relevance</option>
+                                <option value="dsec" > Price: high to low</option>
+                                <option value="asec"  > Price: low to high</option>
+                                <option value="alpha" > Sort By: (A-Z)</option>
                             </select>
                         </div>
                     </div>
                     <div className="books">
+                   
                         {currentBooks.map((book) => {
                             return <div className="showbooks" onClick={(e)=>this.bookDetails(e,book)}>
                                 <div className="bookimage">
@@ -177,18 +195,19 @@ class DisplayBook extends Component {
                             </div>
                             })
                         }
-                    </div>
-
-                    <PaginationBar _books={this.state._books}
-                        postsPerPage={this.state.postsPerPage}
-                        currentPage={this.state.currentPage}
-                        changepage={this.changepage}
-                    />
-
+                    </div>                
                 </div>
-                <Footer/>
-                </>}
-      
+                <Profiler id="pagination" onRender={this.profiler}>
+                    <PaginationBar _books={this.state._books}
+                            postsPerPage={this.state.postsPerPage}
+                            currentPage={this.state.currentPage}
+                            changepage={this.changepage}
+                        />
+                </Profiler>
+                <Profiler id="footer" onRender={this.profiler}>
+                    <Footer/>
+                </Profiler>
+                </>}      
             </>
         )
     }

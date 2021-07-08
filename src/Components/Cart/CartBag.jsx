@@ -11,7 +11,7 @@ import Footer from '../Footer/Footer';
 // import Footer from '../Footer/Footer';
 
 const service = new Service();
-
+ 
 class CartBag extends React.Component {
     constructor(props) {
         super(props);
@@ -116,7 +116,7 @@ class CartBag extends React.Component {
         };
         service.order(data).then((res) => {
             console.log(res);
-            this.props.history.push('/ordersucess')
+            this.props.history.push('/ordersuccess')
         }).catch((err) => {
             console.log(err);
         })
@@ -209,7 +209,7 @@ class CartBag extends React.Component {
                 <div className="cartitems box">
                     <div className="mycart"> My Cart({this.state._cartbooks.length})</div>
                     {this.state._cartbooks.map((val, index) => {
-                        return (<div className="part1">
+                        return (<><div className="part1">
                             <div className="container">  <div>
                                 <img src={Dont} alt="" />
                             </div>
@@ -223,11 +223,19 @@ class CartBag extends React.Component {
                                         <RemoveCircleOutlineTwoToneIcon style={{ opacity: 0.4, cursor:"pointer"}} onClick={()=>this.decrement(val._id, val.quantityToBuy)} />
                                         <div className="remove" onClick={() => this.removeCartId(val._id)}>Remove</div>
                                     </div>
+                                    {/* {this.state._cartbooks.length - 1 === index ? this.state.show ? null : <Button className="" variant="contained" color="primary" onClick={this.showCD}>
+                                    Place Order</Button> : null} */}
                                 </div>
                             </div>
-                            {this.state._cartbooks.length - 1 === index ? this.state.show ? null : <Button variant="contained" color="primary" onClick={this.showCD}>
+                            {/* {this.state._cartbooks.length - 1 === index ? this.state.show ? null : <Button  variant="contained" color="primary" onClick={this.showCD}>
+                                    Place Order</Button> : null} */}
+                        </div>
+                        <div className="placeOrder">
+                        {this.state._cartbooks.length - 1 === index ? this.state.show ? null : <Button  variant="contained" color="primary" onClick={this.showCD}>
                                     Place Order</Button> : null}
-                        </div>)
+                        </div></>
+                        )
+
 
                     })
                     }
@@ -264,7 +272,9 @@ class CartBag extends React.Component {
                             margin='dense' onChange={this.changeStates}
                         />
                         <TextField id="outlined-basic" label="address" variant="outlined"
-                            name="address" fullWidth className="address"
+                            name="address" 
+                            // fullWidth 
+                            className="address"
                             margin="dense" onChange={this.changeStates}
 
                             onChange={(e) => this.changeState(e)}
@@ -294,7 +304,7 @@ class CartBag extends React.Component {
                     <div className=""> Ordersummary</div>
                     {this.state.showOs ?
                         <> {this.state._cartbooks.map((val, index) => {
-                            return (<div className="part1">
+                            return (<><div className="part1">
                                 <div className="container">  <div>
                                     <img src={Dont} alt="" />
                                 </div>
@@ -304,12 +314,15 @@ class CartBag extends React.Component {
                                         <div className="price">Rs.{val.product_id.price * val.quantityToBuy}</div>
 
                                     </div></div>
-                                {this.state._cartbooks.length - 1 === index
-                                    ? <Button variant="contained" color="primary" onClick={this.order}>
-                                        CHECKOUT </Button> : null}
-                            </div>)
+                                    
+                            </div>
+                            <div className="checkout">
+                                        {this.state._cartbooks.length - 1 === index
+                                            ? <Button variant="contained" color="primary" onClick={this.order}>
+                                                CHECKOUT </Button> : null}
+                                    </div></>)
 
-                        })
+                        }) 
                         }<div><br></br></div> </> : null}
                 </div>
 

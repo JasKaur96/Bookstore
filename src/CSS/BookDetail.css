@@ -83,7 +83,7 @@
     color : #fff;
     background-color: #A03037;
     height : 40px;
-    width :170px;
+    width :100%;
     border-radius: 1px;
     cursor: pointer;
 }
@@ -94,14 +94,14 @@
 
     background-color: #1e53a1;
     height : 40px;
-    width :370px;
+    width :100%;
     border-radius: 1px;
     cursor: pointer;
 }
 
 .addOrRemove{
     height : 80%;
-    width :40%;
+    width :100%;
     border-radius: 5px;
     display: flex;
     flex-direction: row;
@@ -194,8 +194,7 @@
 .number{
     display: flex;
     justify-content: center;
-    align-self: center
-    ;
+    align-self: center;
 }
 .rating-star{
     margin-left: 8%;
@@ -276,6 +275,11 @@
     height : fit-content;
     margin-top: 3px;
 }
+/* .horizoantalline{
+    width : 100%;
+    height : fit-content;
+    margin-top: 3px;
+} */
 .customer-feedback {
     width : 100%;
     height : 30%;
@@ -359,8 +363,298 @@
     margin-left: 15px;
 }
 
-@media only screen and (max-width: 600px){
-    .mainContainer{
-        width: 100%;
+@media only screen and (min-width: 400px)and  (max-width: 500px){
+.mainContainer{
+    width:60%;
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* margin-left: -50%; */
+}
+    .container{
+        width:100%;
+        margin-left: -55%; 
+        /* display:flex; */
+
+        /* flex-direction: column;
+        align-items: center; */
+    }
+    .addtobag{
+        width: 43%;
+    }
+    .addOrRemove{
+
+        width: 43%;
+    }
+    .bookdetail{
+        margin-left: -80%; 
+        margin-top: 10%;
+        display:flex;
+        justify-content: flex-start;
+       
+    }
+    .star{
+        width:50px;
+    }
+    .number{
+        /* width: 1px; */
+        font-size: 15px;
+    }
+    .discount-price{
+        margin-left: 98%; 
+        font-size: 18px;
+    }
+    .price{
+        margin-top: 0%; 
+        margin-left: 10%;
+        font-size: 13px;
+    }
+    .horizoantalline{
+        /* margin-top: 10%; */
+        padding: 10%;
+        margin-left: -90%; 
+        width: 350px;
+    }
+    .desc-book{
+        width:100%;
+        margin-right: 105%; 
+        /* margin-top: 1%; */
+    }
+    .desc-title{
+        width:50%;
+        margin-right: 110%; 
+        margin-top: -10%;
+    }
+
+    .lorem{
+       
+        width:fit-content;
+        /* height: fit-content; */
+        /* text-align: left; */
+        /* margin-left: -100%; */
+        margin-top: 6%; 
+        margin-bottom: 65%; 
+    }
+
+    .imgsmall1{
+        display: none;
+    }
+
+    .image2{
+        display: none;
+    }
+
+    .title{
+        font: normal normal normal 25px/37px Roboto;
+    }
+
+    .details{
+        display:flex;
+        flex-direction: column;  
+        width:100%;
+    }
+
+    .customer-feedback-container{
+        width: 50%;
+    }
+
+    .textarea-actual-cutomerfeedback{
+        width:90%;
+        margin-left: 5%;
+    }
+    .wishlist{
+        width: 400px;
+        height: 60px;
+        margin-left: 20%;
     }
 }
+
+
+@media only screen and (max-width: 360px){
+    .mainContainer{
+        /* width:50%; */
+        display:flex;
+        flex-direction: column;
+        align-items: flex-start;
+        /* margin-left: -50%; */
+    }
+    .addtobag{
+        width: 43%;
+    }
+    .addOrRemove{
+
+        width: 43%;
+    }
+        .container{
+            width:100%;
+            margin-left: -55%; 
+            /* display:flex; */
+    
+            /* flex-direction: column;
+            align-items: center; */
+        }
+        .bookdetail{
+            margin-left: -80%; 
+            margin-top: 10%;
+            display:flex;
+            justify-content: flex-start;
+           
+        }
+        .star{
+            width:50px;
+        }
+        .number{
+            /* width: 1px; */
+            font-size: 15px;
+        }
+        .discount-price{
+            margin-left: 98%; 
+            font-size: 18px;
+        }
+        .price{
+            margin-top: 0%; 
+            margin-left: 10%;
+            font-size: 13px;
+        }
+        .horizoantalline{
+            /* margin-top: 10%; */
+            padding: 10%;
+            margin-left: -90%; 
+            width: 350px;
+        }
+        .desc-book{
+            width:100%;
+            margin-right: 105%; 
+            /* margin-top: 1%; */
+        }
+        .desc-title{
+            width:50%;
+            margin-right: 110%; 
+            margin-top: -10%;
+        }
+    
+        .lorem{
+           
+            width:fit-content;
+            /* height: fit-content; */
+            /* text-align: left; */
+            /* margin-left: -100%; */
+            margin-top: 6%; 
+            margin-bottom: 65%; 
+        }
+    
+        .imgsmall1{
+            display: none;
+        }
+    
+        .image2{
+            display: none;
+        }
+    
+        .title{
+            font: normal normal normal 25px/37px Roboto;
+        }
+    
+        .details{
+            display:flex;
+            flex-direction: column;  
+            width:100%;
+        }
+    
+        .customer-feedback-container{
+            width: 50%;
+        }
+    
+        .textarea-actual-cutomerfeedback{
+            width:90%;
+            margin-left: 5%;
+        }
+        .wishlist{
+            width: 400px;
+            height: 60px;
+            margin-left: 20%;
+        }
+    }
+
+/* 
+
+@media only screen and (max-width: 768px){
+    .cartcontent {
+        width: 90%;
+        height: 150vh;
+        margin-left: 37px;
+    }
+    .container {
+        width: 100%;
+        margin-left: 2%;
+    }
+    .barSpace {
+        width: 230px;
+        height: 33px;
+    }
+    .bookdetail{
+        margin-left: 15%; 
+        margin-top: 5%;
+        display:flex;
+        justify-content: flex-start;
+    }
+
+    .star{
+        width:50px;
+    }
+
+    .number{
+        font-size: 15px;
+    }
+    
+    .discount-price{
+        font-size: 18px;
+    }
+    .price{
+        margin-top: 0%; 
+        margin-left: 10%;
+        font-size: 13px;
+    }
+    .horizoantalline{    
+        margin-left: -10%; 
+        width: 100%;
+    }
+    .desc-book{
+        width:100%;   
+        margin-top: 10%;
+        height: 5%;
+    }
+    .desc-title{
+        width:20%;
+        margin-right: 50%; 
+        margin-top: -10%;
+    }
+    .lorem{   
+        width:90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;   
+        text-align:left;
+        margin-top: 3%;       
+    }
+    .title{
+        font: normal normal normal 25px/37px Roboto;
+    }
+    .details{
+        display:flex;
+        flex-direction: column;  
+        width:100%;
+    }
+    .customer-feedback-container{
+        width: 50%;
+    }
+    .textarea-actual-cutomerfeedback{
+        width:90%;
+        margin-left: 5%;
+    }
+    .wishlist{
+        width: 400px;
+        height: 60px;
+        margin-left: 20%;
+     }
+} */
