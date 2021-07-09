@@ -50,7 +50,7 @@ profile = () => {
     render() {
         return (
             <> 
-            <div className="appbar"> 
+            <div className="appbar">  
               <div>
               <Link to="/home"><img src={Book}  alt=""/></Link>
               {!this.props.header && <>

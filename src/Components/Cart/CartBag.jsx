@@ -185,11 +185,13 @@ class CartBag extends React.Component {
                 console.log(err);
             })
             this.setState({ showOs: true });
-        }
+        } 
     }
     showCD = () => {
-        this.setState({ show: true });
+        this.setState({show: true});
+        console.log("Show Customer Details", this.state.show)
     }
+
     removeCartId = (id) => {
         service.removeCartItem(id).then((res) => {
             console.log(res);
@@ -221,7 +223,7 @@ class CartBag extends React.Component {
                                         <AddCircleOutlineTwoToneIcon style={{ opacity: 0.4,cursor:"pointer"}} onClick={()=>this.increment(val._id, val.quantityToBuy)} />
                                         <div className="quantity">{val.quantityToBuy}</div>
                                         <RemoveCircleOutlineTwoToneIcon style={{ opacity: 0.4, cursor:"pointer"}} onClick={()=>this.decrement(val._id, val.quantityToBuy)} />
-                                        <div className="remove" onClick={() => this.removeCartId(val._id)}>Remove</div>
+                                      {this.state.show === false ?  <div className="remove" onClick={() => this.removeCartId(val._id)}>Remove</div>:<></>}
                                     </div>
                                     {/* {this.state._cartbooks.length - 1 === index ? this.state.show ? null : <Button className="" variant="contained" color="primary" onClick={this.showCD}>
                                     Place Order</Button> : null} */}

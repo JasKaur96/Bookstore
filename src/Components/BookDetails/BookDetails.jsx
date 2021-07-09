@@ -42,16 +42,20 @@ class BookDetail extends Component {
         inputQuantity: true,
         getCart: [],
         cartId:"",
-        loader: false
+        loader: false,
+        bookBagged: false,
+        count:this.props.cart_count
     } 
 }
 
   componentDidMount() {
       this.getCart();
+     
   }
 
   handleToggle = () => {
       this.setState({loader:!this.state.loader});
+     
   };
 
   handleClose = (event, reason) => {
@@ -67,7 +71,7 @@ class BookDetail extends Component {
       isCart: true
     }
 
-    this.handleToggle();
+    // this.handleToggle();
     let token = localStorage.getItem('Token')
     console.log(value);
     service.addToCartBook(data, value._id, token).then((res) => {
@@ -75,22 +79,34 @@ class BookDetail extends Component {
       console.log(res);
       // this.getCart();
       this.setState({ cartId: value._id })
+      let cart_Num = this.state.count + 1;
+      this.setState({count : cart_Num});
       console.log("cartId", this.state.cartId);
-      this.handleClose();
+      this.setState({bookBagged : true})
+      this.props.history.push('/bookdetails')  
+      // this.handleClose();
     })
       .catch((err) => {
         console.log(err);
-        this.handleClose();
+        // this.handleClose();
     })
   }
 
 getCart=()=>{
   service.getCartItems().then((res) => {
     console.log("getCart", res);
-   this.setState({ getCart: res.data.result });
+    this.setState({ getCart: res.data.result });
+
+    this.state.getCart.map((value) => {
+      if(this.props.selectedBook.bookName == value.product_id.bookName){
+        console.log("if hereeeeeeeeee")
+        this.setState({bookBagged : true})
+      }          
+    }) 
+
   })
 }
-
+ 
   increaseBook = (quantity, productid) => {
     console.log("quantity", quantity);
     let data = {
@@ -105,10 +121,20 @@ getCart=()=>{
     })
   }
 
+  bookInBag = () =>{
+    this.state.getCart.map((value) => {
+      if(this.props.selectedBook.bookName == value.product_id.bookName){
+        console.log("if hereeeeeeeeee")
+        this.setState({bookBagged : true})
+      }
+          
+    })    
+  }
   render() {
     const {classes} = this.props;
     console.log(this.props.selectedBook, "display details");
     console.log(this.props.cart_count, "count of books");
+    console.log(this.state.bookBagged,"Book in bag")
     return (
       <>
       {this.state.loader ?
@@ -118,7 +144,7 @@ getCart=()=>{
               onClick={this.handleClose}>
           <CircularProgress color="inherit" />
         </Backdrop>:<>
-        <Header cartbooks={this.props.cart_count} openCart={this.props.open}/>
+        <Header cartbooks={this.state.count} openCart={this.props.open}/>
         <div className="mainContainer">
           <div className="container">
             <div className="imgs-container">
@@ -135,18 +161,30 @@ getCart=()=>{
               </div>
             </div>
             <div className="wishlist">
-              {this.state.inputQuantity ?<> <button className="addtobag" onClick={() => this.addedtoCart(this.props.selectedBook)}
+            {this.state.bookBagged === true  ?
+              <><div className="addOrRemove">
+              
+                <button className="addedtobag" >ADDED TO BAG</button>
+              </div></> :
+              
+              <> <button className="addtobag" onClick={() => this.addedtoCart(this.props.selectedBook)}
+              >ADD TO BAG
+              </button> 
+              
+              </>
+              }
+            
+                          
+             {/* {this.state.inputQuantity  ?<> <button className="addtobag" onClick={() => this.addedtoCart(this.props.selectedBook)}
               >Add To Bag
               </button> 
-               {/* <button className="addwishlist">
-                <i class="zmdi zmdi-favorite"></i> <span>WishList</span>
-              </button> */}
-              </>: <><div className="addOrRemove">
-               {/* <button className="addbtn" >+</button>
-                <button className="addbtn">-</button> */}
+              
+              </>:
+               <><div className="addOrRemove">
+              
                 <button className="addedtobag" >Added To Bag</button>
               </div></>
-              }
+              } */}
              
             </div>
           </div>

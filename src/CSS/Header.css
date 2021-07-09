@@ -28,7 +28,7 @@
     width: auto;
 }
 .barSpace{
-    width: 490px;
+    width: 505px;
     height: 33px;
 }
 .input {
@@ -89,9 +89,9 @@
         width: 100%;
         
     } */
-    /* .appbar div p{
+    .appbar div p{
         display: none;
-    } */
+    }
     .barSpace {
         width: 98px;
         height: 33px;
@@ -137,11 +137,11 @@
         width: 100%;
         
     } */
-    /* .appbar div p{
+    .appbar div p{
         display: none;
-    } */
+    }
     .barSpace {
-        width: 98px;
+        width: 105px;
         height: 33px;
     }
     .input{
