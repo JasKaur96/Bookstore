@@ -76,7 +76,7 @@ class BookDetail extends Component {
     service.addToCartBook(data, value._id, token).then((res) => {
       console.log(value);
       console.log(res);
-      // this.getCart();
+      this.getCart();
       this.setState({ cartId: value._id })
       let cart_Num = this.state.count + 1;
       this.setState({count : cart_Num});
@@ -93,6 +93,7 @@ class BookDetail extends Component {
   }
 
 getCart=()=>{
+  this.handleToggle();
   service.getCartItems().then((res) => {
     console.log("getCart", res);
     this.setState({ getCart: res.data.result });
@@ -100,7 +101,8 @@ getCart=()=>{
       if(this.props.selectedBook.bookName == value.product_id.bookName){
         console.log("if hereeeeeeeeee")
         this.setState({bookBagged : true})
-      }          
+      }
+      this.handleClose();          
     }) 
 
   })
@@ -175,15 +177,11 @@ getCart=()=>{
               <div className="addOrRemove">              
                   <button className="addedtobag">ADDED TO BAG</button>
               </div> 
-              :<>
-                {this.state.inputQuantity  ?<> <button className="addtobag" onClick={() => this.addedtoCart(this.props.selectedBook)}
+              :
+                <button className="addtobag" onClick={() => this.addedtoCart(this.props.selectedBook)}
                     >ADD TO BAG
                   </button>               
-                  </>:
-                  <div className="addOrRemove">              
-                    <button className="addedtobag">ADDED TO BAG</button>
-                  </div> 
-                }</>
+                
             }                  
             </div>
           </div>
