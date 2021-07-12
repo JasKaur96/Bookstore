@@ -70,7 +70,6 @@ class BookDetail extends Component {
     let data = { 
       isCart: true
     }
-
     // this.handleToggle();
     let token = localStorage.getItem('Token')
     console.log(value);
@@ -82,6 +81,7 @@ class BookDetail extends Component {
       let cart_Num = this.state.count + 1;
       this.setState({count : cart_Num});
       console.log("cartId", this.state.cartId);
+      
       this.setState({bookBagged : true})
       this.props.history.push('/bookdetails')  
       // this.handleClose();
@@ -96,7 +96,6 @@ getCart=()=>{
   service.getCartItems().then((res) => {
     console.log("getCart", res);
     this.setState({ getCart: res.data.result });
-
     this.state.getCart.map((value) => {
       if(this.props.selectedBook.bookName == value.product_id.bookName){
         console.log("if hereeeeeeeeee")
@@ -120,16 +119,26 @@ getCart=()=>{
       console.log(err);
     })
   }
+ 
+  bookInBag = (id) =>{
+   
+    console.log("Id", id )
+  
+      let result = this.state.getCart.find(function(value) {
+        
+        console.log("Id here inside", id, value.product_id._id )
+        if(value.product_id._id === id){
+          console.log("book in bag method" )
+          return true;
+        }else{
+          return false;
+        }
+      })
 
-  bookInBag = () =>{
-    this.state.getCart.map((value) => {
-      if(this.props.selectedBook.bookName == value.product_id.bookName){
-        console.log("if hereeeeeeeeee")
-        this.setState({bookBagged : true})
-      }
-          
-    })    
+      return result;
+   
   }
+
   render() {
     const {classes} = this.props;
     console.log(this.props.selectedBook, "display details");
@@ -161,31 +170,21 @@ getCart=()=>{
               </div>
             </div>
             <div className="wishlist">
-            {this.state.bookBagged === true  ?
-              <><div className="addOrRemove">
-              
-                <button className="addedtobag" >ADDED TO BAG</button>
-              </div></> :
-              
-              <> <button className="addtobag" onClick={() => this.addedtoCart(this.props.selectedBook)}
-              >ADD TO BAG
-              </button> 
-              
-              </>
-              }
-            
-                          
-             {/* {this.state.inputQuantity  ?<> <button className="addtobag" onClick={() => this.addedtoCart(this.props.selectedBook)}
-              >Add To Bag
-              </button> 
-              
-              </>:
-               <><div className="addOrRemove">
-              
-                <button className="addedtobag" >Added To Bag</button>
-              </div></>
-              } */}
-             
+
+            {this.bookInBag(this.props.selectedBook._id) ?           
+              <div className="addOrRemove">              
+                  <button className="addedtobag">ADDED TO BAG</button>
+              </div> 
+              :<>
+                {this.state.inputQuantity  ?<> <button className="addtobag" onClick={() => this.addedtoCart(this.props.selectedBook)}
+                    >ADD TO BAG
+                  </button>               
+                  </>:
+                  <div className="addOrRemove">              
+                    <button className="addedtobag">ADDED TO BAG</button>
+                  </div> 
+                }</>
+            }                  
             </div>
           </div>
 

@@ -5,4 +5,4 @@ import logger from 'redux-logger';
 // Its API is { subscribe, dispatch, getState }.
 const store = createStore(BookDetailsReducers,applyMiddleware(logger))
 
-export default store; 
+export default store;  

@@ -6,7 +6,7 @@ const initialState = {
     open: false,
     searchedBook:[]
 }
-
+ 
 const BookDetailsReducers = (state=initialState, action) => {
    switch(action.type){
         case BOOK_SELECTED :

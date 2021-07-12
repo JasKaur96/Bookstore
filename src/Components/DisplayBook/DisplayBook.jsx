@@ -107,9 +107,11 @@ class DisplayBook extends Component {
             this.setState({_books : data})
         }
     }
-    search = () =>{
+
+    search = (FirstBook,LastBook) =>{
          if(this.props.searchedData != []){
             this.setState({ _books:this.props.searchedData});
+            // this.setState({ _books:this.props.searchedData.slice(FirstBook, LastBook)})
         }
     
     }
