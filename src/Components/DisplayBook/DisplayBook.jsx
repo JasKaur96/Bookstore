@@ -52,8 +52,12 @@ class DisplayBook extends Component {
 
     storeBooks = (books) => {
         console.log("StoreBooks");
+<<<<<<< HEAD
         this.books = books;
        
+=======
+        this.books = books;       
+>>>>>>> BookDetails
         return this.books;
     }
 
@@ -95,9 +99,13 @@ class DisplayBook extends Component {
             this.setState({_books : sortData.reverse()}) 
         }else if(e.target.value === "alpha"){
             let data = [...this.state._books].sort(function(a,b){
+<<<<<<< HEAD
                 // console.log("alpha sort  b ", b.bookName)
                 if(a.bookName < b.bookName){
                     // console.log("alpha sort a", a.bookName) 
+=======
+                if(a.bookName < b.bookName){
+>>>>>>> BookDetails
                     console.log("alpha sort  b ", b.bookName)
                     return -1;
                 }
@@ -108,6 +116,7 @@ class DisplayBook extends Component {
         }
     }
 
+<<<<<<< HEAD
     search = (FirstBook,LastBook) =>{
          if(this.props.searchedData != []){
             this.setState({ _books:this.props.searchedData});
@@ -115,6 +124,14 @@ class DisplayBook extends Component {
         }
     
     }
+=======
+    search = () =>{
+         if(this.props.searchedData != []){
+            this.setState({ _books:this.props.searchedData});
+        }    
+    }
+    
+>>>>>>> BookDetails
     getAllBooks = () => {
         var books = [];
         this.handleToggle()

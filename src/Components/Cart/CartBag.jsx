@@ -217,12 +217,17 @@ class CartBag extends React.Component {
                             </div>
                                 <div className="items">
                                     <div>{val.product_id.bookName}</div>
+<<<<<<< HEAD
                                     <div className="author"> by{val.product_id.author}</div>
+=======
+                                    <div className="author"> by {val.product_id.author}</div>
+>>>>>>> BookDetails
                                     <div className="price">Rs.{val.product_id.price * val.quantityToBuy}</div>
                                     <div className="inlineicons">
                                         <AddCircleOutlineTwoToneIcon style={{ opacity: 0.4,cursor:"pointer"}} onClick={()=>this.increment(val._id, val.quantityToBuy)} />
                                         <div className="quantity">{val.quantityToBuy}</div>
                                         <RemoveCircleOutlineTwoToneIcon style={{ opacity: 0.4, cursor:"pointer"}} onClick={()=>this.decrement(val._id, val.quantityToBuy)} />
+<<<<<<< HEAD
                                       {this.state.show === false ?  <div className="remove" onClick={() => this.removeCartId(val._id)}>Remove</div>:<></>}
                                     </div>
                                     {/* {this.state._cartbooks.length - 1 === index ? this.state.show ? null : <Button className="" variant="contained" color="primary" onClick={this.showCD}>
@@ -231,16 +236,25 @@ class CartBag extends React.Component {
                             </div>
                             {/* {this.state._cartbooks.length - 1 === index ? this.state.show ? null : <Button  variant="contained" color="primary" onClick={this.showCD}>
                                     Place Order</Button> : null} */}
+=======
+                                      {this.state.show === false ? <div className="remove" onClick={() => this.removeCartId(val._id)}>Remove</div>:<></>}
+                                    </div>
+                                   </div>
+                            </div>
+>>>>>>> BookDetails
                         </div>
                         <div className="placeOrder">
                         {this.state._cartbooks.length - 1 === index ? this.state.show ? null : <Button  variant="contained" color="primary" onClick={this.showCD}>
                                     Place Order</Button> : null}
                         </div></>
                         )
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> BookDetails
                     })
-                    }
+                }
                 </div>
                 <div className="customerdetails box">
                     <div>Customer Details </div>
@@ -303,7 +317,11 @@ class CartBag extends React.Component {
                         : null}</div>
 
                 <div className="cartitems box">
+<<<<<<< HEAD
                     <div className=""> Ordersummary</div>
+=======
+                    <div className=""> Order Summary</div>
+>>>>>>> BookDetails
                     {this.state.showOs ?
                         <> {this.state._cartbooks.map((val, index) => {
                             return (<><div className="part1">
@@ -329,7 +347,7 @@ class CartBag extends React.Component {
                 </div>
 
             </div>
-            {/* <Footer/> */}
+            <Footer/>
         </>)
     }
 }

@@ -16,8 +16,13 @@ import { withStyles } from "@material-ui/core/styles";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { connect } from 'react-redux';
+<<<<<<< HEAD
 import Header from '../Header/Header'
 
+=======
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
+>>>>>>> BookDetails
 const mapStateToProps = (state) => {
   console.log("state",state.bookDetails, "/n count ", state.cart_count);
   return {
@@ -72,8 +77,8 @@ class BookDetail extends Component {
     }
     // this.handleToggle();
     let token = localStorage.getItem('Token')
-    console.log(value);
     service.addToCartBook(data, value._id, token).then((res) => {
+<<<<<<< HEAD
       console.log(value);
       console.log(res);
       this.getCart();
@@ -89,13 +94,26 @@ class BookDetail extends Component {
       .catch((err) => {
         console.log(err);
         // this.handleClose();
+=======
+      this.getCart();
+      this.setState({ cartId: value._id })
+      let cart_Num = this.state.count + 1;
+      this.setState({count : cart_Num});   
+      this.props.history.push('/bookdetails')
+    })
+      .catch((err) => {
+        console.log(err);
+>>>>>>> BookDetails
     })
   }
 
 getCart=()=>{
   this.handleToggle();
   service.getCartItems().then((res) => {
+<<<<<<< HEAD
     console.log("getCart", res);
+=======
+>>>>>>> BookDetails
     this.setState({ getCart: res.data.result });
     this.state.getCart.map((value) => {
       if(this.props.selectedBook.bookName == value.product_id.bookName){
@@ -109,11 +127,13 @@ getCart=()=>{
 }
  
   increaseBook = (quantity, productid) => {
+<<<<<<< HEAD
     console.log("quantity", quantity);
+=======
+>>>>>>> BookDetails
     let data = {
       "quantityToBuy": quantity + 1
     }
-    console.log(data, productid);
     service.cartQuantity(data, productid).then((res) => {
       console.log(res);
       this.getCart();
@@ -252,6 +272,10 @@ getCart=()=>{
           </div>
         </div>
         </>}
+<<<<<<< HEAD
+=======
+        {/* <Footer/> */}
+>>>>>>> BookDetails
       </>
     );
   }
