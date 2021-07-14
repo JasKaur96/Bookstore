@@ -27,7 +27,11 @@
     font-size: 20px;
     width: auto;
 }
-.appbar .input {
+.barSpace{
+    width: 505px;
+    height: 33px;
+}
+.input {
     width: 490px;
     height: 33px;
     border-radius: 3px;
@@ -43,7 +47,7 @@
 .appbar .input .searchicon {
     color: grey;
 }
-.appbar .input input {
+.input input {
     height: 29px;
     outline: none;
     border-radius: 3px;
@@ -63,7 +67,7 @@
 .appbar div .pro .proicon {
     color: white;    
     margin-left: 10px;
-    
+    margin-bottom: 5px;
 }
 
 .appbar div .cart {
@@ -79,63 +83,136 @@
 
 }
 
-@media only screen and (max-width: 360px) {
-    .appbar {
-        width: 225%;
-   }
-    .appbar div {
-        display: flex;
-   }
-    .appbar div img {
-        width: 30px;
-        height: 30px;
-   }
-    .appbar div p {
-        color: white;
-        padding-left: 5px;
-        font-size: 20px;
-        width: auto;
-   }
-    .appbar .input {
-        width: 400px;
-        height: 29px;
-        border-radius: 8px;
-        align-content: center;
-        background: white;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        padding-left: 3px;
-        flex-grow: 0;
-   }
-    .appbar .input input {
-        height: 29px;
-        outline: none;
-        border-radius: 8px;
-        border: none;
-   }
-    .appbar div {
-        padding: 0 25px;
-   }
+@media screen and (max-width: 360px)  {
+    
+    /* .appbar {
+        width: 100%;
+        
+    } */
+    .appbar div p{
+        display: none;
+    }
+    .barSpace {
+        width: 98px;
+        height: 33px;
+    }
+    .input{
+        width: 100%;
+    }
+    .input input{
+        width: 80%;
+    }
     .appbar div .pro {
-        color: white;
-        display: flex;
-        flex-direction: column;
-        width: auto;
-        /* margin-left: 50px; */
-   }
+        /* padding: 1px; */
+        margin-left:-40px;
+        font-size: 12px;
+    }
+    .appbar div img{
+       width: 30px    }
+
+    /* .appbar div p{
+        font-size: 0px;
+    } */
+        
     .appbar div .pro .proicon {
-        color: white;
-         /* margin-left: 50px; */
-   }
+        width: 20px;    
+        /* margin-bottom: 1%; */
+    }
+
+    .appbar div .cart .carticon {    
+        width: 19px;
+    }
+
     .appbar div .cart {
-        color: white;
-        display: flex;
-        flex-direction: column;
-        width: 12px;
-   }
-    .appbar div .cart .carticon {
-        color: white;
-         /* margin-left: 50px; */
-   }
+        padding: 1px;
+        margin-left: -8px;
+        font-size: 12px;
+    }
+}
+
+
+@media screen and (min-width: 400px) and (max-width: 500px) {
+    
+    /* .appbar {
+        width: 100%;
+        
+    } */
+    .appbar div p{
+        display: none;
+    }
+    .barSpace {
+        width: 105px;
+        height: 33px;
+    }
+    .input{
+        width: 100%;
+    }
+    .input input{
+        width: 80%;
+    }
+    .appbar div .pro {
+        /* padding: 1px; */
+        margin-left:-40px;
+        font-size: 12px;
+    }
+    .appbar div img{
+       width: 30px    }
+
+    /* .appbar div p{
+        font-size: 0px;
+    } */
+        
+    .appbar div .pro .proicon {
+        width: 20px;    
+        /* margin-bottom: 1%; */
+    }
+
+    .appbar div .cart .carticon {    
+        width: 19px;
+    }
+
+    .appbar div .cart {
+        padding: 1px;
+        margin-left: -8px;
+        font-size: 12px;
+    }
+}
+
+
+@media screen and (min-width: 500) and (max-width: 768px) {
+  
+    .appbar {
+        width: 100%;
+    }
+    .input{
+        width: 100%;
+    }
+    .input input{
+        width: 80%;
+    }
+     .appbar div .pro {
+     
+        margin-left:-40px;
+        font-size: 12px;
+    }
+    .appbar div img{
+       width: 30px    }
+
+    .barSpace {
+        width: 280px;
+        height: 33px;
+    }
+    .appbar div .pro .proicon {
+        width: 20px;    
+    }
+
+    .appbar div .cart .carticon {    
+        width: 19px;
+    }
+
+    .appbar div .cart {
+       
+        margin-left: -10px;
+        font-size: 12px;
+    }
 }

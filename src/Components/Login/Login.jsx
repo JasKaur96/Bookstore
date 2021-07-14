@@ -47,7 +47,8 @@ class Login extends React.Component {
             snackMessage: "",
             snackType: "",
             loader:false,
-            show:true
+            show:true,
+            name:""
         })
     }
 
@@ -205,11 +206,12 @@ class Login extends React.Component {
         </Backdrop>:<></>}
                 <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
 
-                    <div className="line"></div>OR<div className="line"></div></div>
-                <div className="inlineButtons1">
+                    {/* <div className="line"></div>OR<div className="line"></div> */}
+                    </div>
+                {/* <div className="inlineButtons1">
                     <Button variant="contained" className='button1' color="primary">Facebook</Button>
                     <Button variant="contained" className='button2' color="default"> Google</Button>
-                </div>
+                </div> */}
                 {/* <Loader handleToggle={this.handleToggle} toggle={this.state.toggle}/> */}
 
                 <div >

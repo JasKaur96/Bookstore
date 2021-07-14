@@ -6,10 +6,12 @@ import AddCircleOutlineTwoToneIcon from '@material-ui/icons/AddCircleOutlineTwoT
 import RemoveCircleOutlineTwoToneIcon from '@material-ui/icons/RemoveCircleOutlineTwoTone';
 import { TextField, Button } from '@material-ui/core';
 import Dont from "../../Assets/book.png";
+import Header from '../../Components/Header/Header';
+import Footer from '../Footer/Footer';
 // import Footer from '../Footer/Footer';
 
 const service = new Service();
-
+ 
 class CartBag extends React.Component {
     constructor(props) {
         super(props);
@@ -88,12 +90,9 @@ class CartBag extends React.Component {
     }
 
     componentDidMount() {
-        service.getCartItems().then((res) => {
-            console.log(res);
-            this.setState({ _cartbooks: res.data.result });
-            // console.log(JSON.stringify(this.state._cartbooks));
-        })
-    }
+      this.getCart();
+    } 
+    
     changeState = (e) => {
         let name = e.target.name;
         let value = e.target.value;
@@ -117,7 +116,7 @@ class CartBag extends React.Component {
         };
         service.order(data).then((res) => {
             console.log(res);
-            this.props.history.push('/ordersucess')
+            this.props.history.push('/ordersuccess')
         }).catch((err) => {
             console.log(err);
         })
@@ -125,7 +124,14 @@ class CartBag extends React.Component {
             this.removeCartId(val._id);
         })
     }
-    
+    getCart(){
+        service.getCartItems().then((res) => {
+            console.log(res);
+            this.setState({ _cartbooks: res.data.result });
+            // console.log(JSON.stringify(this.state._cartbooks));
+        })
+    }
+
     increment = (productid, quantity) => {
         let data = {
             "quantityToBuy": quantity + 1
@@ -133,10 +139,29 @@ class CartBag extends React.Component {
         console.log(data);
         console.log("Quantity",data.quantityToBuy);
         service.cartIncrementDecrement(data, productid).then((res) => {
+            this.getCart();
             console.log(res);
         }).catch((err) => {
             console.log(err);
         })
+    }
+
+    decrement = (productid, quantity) => {
+        let data = {
+            "quantityToBuy": quantity - 1
+        }
+        if(data.quantityToBuy >= 1){
+            service.cartIncrementDecrement(data, productid).then((res) => {
+                console.log(res);
+                this.getCart();
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
+        else{
+            console.log("Out of Stock!")
+        }
+       
     }
 
     changeStates = (e) => {
@@ -145,16 +170,6 @@ class CartBag extends React.Component {
         this.setState({ [name]: value });
     }
 
-    decrement = (productid, quantity) => {
-        let data = {
-            "quantityToBuy": quantity - 1
-        }
-        service.cartIncrementDecrement(data, productid).then((res) => {
-            console.log(res);
-        }).catch((err) => {
-            console.log(err);
-        })
-    }
     submitUserDetails = () => {
         if (this.validationCheck()) {
             let data = {
@@ -170,11 +185,13 @@ class CartBag extends React.Component {
                 console.log(err);
             })
             this.setState({ showOs: true });
-        }
+        } 
     }
     showCD = () => {
-        this.setState({ show: true });
+        this.setState({show: true});
+        console.log("Show Customer Details", this.state.show)
     }
+
     removeCartId = (id) => {
         service.removeCartItem(id).then((res) => {
             console.log(res);
@@ -187,36 +204,37 @@ class CartBag extends React.Component {
     }
     render() {
         return (<>
-            <Appbar show={false} />
+            <Header cartbooks={this.state._cartbooks.length} show={false} />
 
             <div className="cartcontent"> <span className="Home">Home/MyCart</span>
+            <br/>
                 <div className="cartitems box">
                     <div className="mycart"> My Cart({this.state._cartbooks.length})</div>
-
                     {this.state._cartbooks.map((val, index) => {
-                        return (<div className="part1">
+                        return (<><div className="part1">
                             <div className="container">  <div>
                                 <img src={Dont} alt="" />
                             </div>
                                 <div className="items">
                                     <div>{val.product_id.bookName}</div>
-                                    <div className="author"> by{val.product_id.author}</div>
-                                    <div className="price">Rs.{val.product_id.price}</div>
+                                    <div className="author"> by {val.product_id.author}</div>
+                                    <div className="price">Rs.{val.product_id.price * val.quantityToBuy}</div>
                                     <div className="inlineicons">
-                                        <AddCircleOutlineTwoToneIcon style={{ opacity: 0.4 }} onClick={() => this.increment(val.product_id._id, val.quantityToBuy)} />
+                                        <AddCircleOutlineTwoToneIcon style={{ opacity: 0.4,cursor:"pointer"}} onClick={()=>this.increment(val._id, val.quantityToBuy)} />
                                         <div className="quantity">{val.quantityToBuy}</div>
-                                        <RemoveCircleOutlineTwoToneIcon style={{ opacity: 0.4 }} onClick={() => this.decrement(val.product_id._id, val.quantityToBuy)} />
-                                        <div className="remove" onClick={() => this.removeCartId(val._id)}>Remove</div>
-
+                                        <RemoveCircleOutlineTwoToneIcon style={{ opacity: 0.4, cursor:"pointer"}} onClick={()=>this.decrement(val._id, val.quantityToBuy)} />
+                                      {this.state.show === false ? <div className="remove" onClick={() => this.removeCartId(val._id)}>Remove</div>:<></>}
                                     </div>
-                                </div></div>
-                            {this.state._cartbooks.length - 1 === index
-                                ? this.state.show ? null : <Button variant="contained" color="primary" onClick={this.showCD}>
+                                   </div>
+                            </div>
+                        </div>
+                        <div className="placeOrder">
+                        {this.state._cartbooks.length - 1 === index ? this.state.show ? null : <Button  variant="contained" color="primary" onClick={this.showCD}>
                                     Place Order</Button> : null}
-                        </div>)
-
+                        </div></>
+                        )
                     })
-                    }
+                }
                 </div>
                 <div className="customerdetails box">
                     <div>Customer Details </div>
@@ -250,7 +268,9 @@ class CartBag extends React.Component {
                             margin='dense' onChange={this.changeStates}
                         />
                         <TextField id="outlined-basic" label="address" variant="outlined"
-                            name="address" fullWidth className="address"
+                            name="address" 
+                            // fullWidth 
+                            className="address"
                             margin="dense" onChange={this.changeStates}
 
                             onChange={(e) => this.changeState(e)}
@@ -277,30 +297,33 @@ class CartBag extends React.Component {
                         : null}</div>
 
                 <div className="cartitems box">
-                    <div className="mycart"> Ordersummary</div>
+                    <div className=""> Order Summary</div>
                     {this.state.showOs ?
                         <> {this.state._cartbooks.map((val, index) => {
-                            return (<div className="part1">
+                            return (<><div className="part1">
                                 <div className="container">  <div>
                                     <img src={Dont} alt="" />
                                 </div>
                                     <div className="items">
                                         <div>{val.product_id.bookName}</div>
                                         <div className="author"> by{val.product_id.author}</div>
-                                        <div className="price">Rs.{val.product_id.price}</div>
+                                        <div className="price">Rs.{val.product_id.price * val.quantityToBuy}</div>
 
                                     </div></div>
-                                {this.state._cartbooks.length - 1 === index
-                                    ? <Button variant="contained" color="primary" onClick={this.order}>
-                                        CHECKOUT </Button> : null}
-                            </div>)
+                                    
+                            </div>
+                            <div className="checkout">
+                                        {this.state._cartbooks.length - 1 === index
+                                            ? <Button variant="contained" color="primary" onClick={this.order}>
+                                                CHECKOUT </Button> : null}
+                                    </div></>)
 
-                        })
-                        } </> : null}
+                        }) 
+                        }<div><br></br></div> </> : null}
                 </div>
 
             </div>
-            {/* <Footer/> */}
+            <Footer/>
         </>)
     }
 }

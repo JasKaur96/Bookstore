@@ -80,10 +80,11 @@
 }
 
 @media only screen and (max-width: 360px) {
-    .imagebody {
+    .body {
         display: flex;
         width: 100%;
-        height: 100vh;
+        position: relative;
+        height:96vh;
         justify-content: center;
         align-items: center;
    }
@@ -97,7 +98,24 @@
    }
 }
 
-
+@media only screen and (min-width: 400px) and (max-width: 500px){
+    .body {
+        display: flex;
+        width: 100%;
+        position: relative;
+        height:96vh;
+        justify-content: center;
+        align-items: center;
+   }
+    .form {
+        margin: 0;
+        width: 300px;
+        padding: 15px;
+   }
+    .imagebody {
+        display: none;
+   }
+}
 @media only screen and (max-width: 784px) {
     .imagebody {
         display: flex;

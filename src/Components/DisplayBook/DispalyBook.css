@@ -1,6 +1,6 @@
 .usercontent {
     width: max-width;
-    height: 89.4vh;
+    /* height: 89.4vh; */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -10,7 +10,11 @@
     margin: 0 15.5%;
 }
 
-.dropbox-content{
+.dropbox-content{ 
+    
+    margin-right: -24px;
+    width: 157px;
+    height: 30px;
     margin-top:-11px
 }
 .usercontent .inlineheader {
@@ -23,6 +27,11 @@
 }
 .headers {
     font-size: 25px;
+    margin-left: -52px;
+}
+.headers span{
+    font-size: 15px;
+    color: #878787;
 }
 
 .dropbox {
@@ -36,6 +45,8 @@
     align-items: center;
     flex-wrap: wrap;
     padding: 15px;
+    width: 110%;
+    margin-left: -6% ;
     
 }
 .showbooks {
@@ -47,6 +58,11 @@
     margin-top: 35px;
     border-radius: 3px;
     opacity: 1;
+    cursor: pointer;
+}
+.showbooks:hover {
+    box-shadow: 0px 3px 5px 3px rgba(101, 107, 112, 0.2);;
+    cursor: pointer;
 }
 .bookimage {
     display: flex;
@@ -73,15 +89,25 @@
     letter-spacing: 0px;
     color: #0A0102;
     opacity: 1;
-
 }
 .content {
     padding: 10px;
 }
 .author {
-    font-size: 10px;
+    /* font-size: 10px;
     color: #878787;
-    padding-bottom: 3px;
+    padding-bottom: 5px;
+     */
+     padding-top: 1px;
+    top: 349px;
+    left: 191px;
+    /* width: 63px; */
+    height: 13px;
+    text-align: left;
+    font: normal normal normal 12px/16px  Roboto;
+    letter-spacing: 0px;
+    color: #878787;
+    opacity: 1;
 }
 .price {
     padding-bottom: 1px;
@@ -89,10 +115,12 @@
     letter-spacing: 0px;
     color: #0A0102;
     opacity: 1;
+    height: 16px;
+    margin-top:6px;
 }
 .rating {
     display: flex;
-    top: 377px;
+    /* top: 377px; */
     left: 191px;
     width: 33px;
     height: 16px;
@@ -104,11 +132,15 @@
     letter-spacing: 0px;
     color: #fff;
     opacity: 1;
+    margin-top: 6px;
+   
 }
 .rate {
     margin-left: 15%;
     margin-top: 5%;
+    letter-spacing: 0px;
     /* text-align: center; */
+    /* padding-bottom: 5px; */
 }
 .inlinebuttons {
     display: flex;
@@ -138,5 +170,109 @@
     color: white;
 }
 .paginationBlock {
-    margin-left: 38%;
+    margin-left: 48%;
+    margin-top: 10%;
+    /* position:absolute; */
+}
+
+@media screen and (max-width: 360px){
+    .usercontent{
+        width:-4%;
+    } 
+    .headers{
+        font-size: 18px;
+        margin-left: -27px;
+    }
+    .headers span{
+        font-size: 14px;
+        margin-right: 10px;
+    }
+    .inlineheader{
+        width: 1%;
+    }
+    .dropbox-content{
+        margin-top: 5%;
+        width: 133%;
+        /* height: 100%; */
+        margin-right: -29px;
+    }
+   .books{
+       width: -40px !important;
+       height: -80px !important;
+       margin-left: -4%;
+   }
+   
+   .paginationBlock {
+    margin-left: 25%;
+    /* margin-top: 10%; */
+   }
+}
+
+
+@media screen and (min-width: 400px) and (max-width:500px){
+    .usercontent{
+        width:-4%;
+    } 
+    .headers{
+        font-size: 18px;
+        margin-left: -27px;
+    }
+    .headers span{
+        font-size: 14px;
+        margin-right: 10px;
+    }
+    .inlineheader{
+        width: 1%;
+    }
+    .dropbox-content{
+        margin-top:5%;    
+        width: 131%;
+        margin-right: -29px;
+        /* height: 100%; */
+    }
+   .books{
+    width: -40px !important;
+    height: -80px !important;
+    margin-left: 3%;
+   }
+   
+   .paginationBlock {
+    margin-left: 25%;
+    margin-top: 10%;
+   }
+}
+
+
+@media screen and (max-width:768px) and (min-width:530px){   
+    .usercontent{
+        width:-4%;
+        height:190vh;
+    } 
+    .headers{
+        font-size: 18px;
+    }
+    .headers span{
+        font-size: 14px;
+        margin-right: 10px;
+    }
+    .inlineheader{
+        width: 1%;
+    }
+    .dropbox-content{
+        margin-top:5%;
+        width:105%;
+        /* height: 100%; */
+    }
+   .books{
+       width: -40px;
+       height: -80px;
+   }
+   .paginationBlock {
+    margin-left: -10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: -70%;
+   }
 }

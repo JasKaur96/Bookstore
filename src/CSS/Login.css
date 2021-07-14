@@ -90,6 +90,7 @@
     background-color: #f5f5f5;
     color: #0a0102;
 }
+
 @media only screen and (max-width: 360px) {
     .span {
         padding-left: 154px;

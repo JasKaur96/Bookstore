@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Paginations from "@material-ui/lab/Pagination";
 
 export default class Pagination extends Component {
-
+ 
     changePage = (e, newpage) => {
         this.props.changepage(e, newpage)
     };

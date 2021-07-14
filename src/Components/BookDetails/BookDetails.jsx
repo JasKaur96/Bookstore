@@ -11,64 +11,139 @@ import Paginations from "@material-ui/lab/Pagination";
 import PaginationBar from '../Pagination/Pagination';
 import "../../CSS/BookDetail.css"
 import CustomerFeedback from "../FeedBack/FeedBack";
+import { withRouter } from 'react-router';
+import { withStyles } from "@material-ui/core/styles";
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { connect } from 'react-redux';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
+const mapStateToProps = (state) => {
+  console.log("state",state.bookDetails, "/n count ", state.cart_count);
+  return {
+      selectedBook:state.bookDetails,
+      cart_count:state.cart_count,
+      open: state.open,      
+  }
+} 
 
 const service = new UserService();
-export default class BookDetail extends Component {
+const styles = theme => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
+});
+
+class BookDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
         inputQuantity: true,
         getCart: [],
-        cartId:""
-    }
+        cartId:"",
+        loader: false,
+        bookBagged: false,
+        count:this.props.cart_count
+    } 
 }
 
   componentDidMount() {
-    service.getCartItems().then((res) => {
-      console.log("getCart", res);
-      // if(this.state.cartId === res.data.result.product_id._id){
-      this.setState({ getCart: res.data.result });
-      // }
-      console.log("getCartdata", this.state.getCart);
-    })
+      this.getCart();
+     
   }
+
+  handleToggle = () => {
+      this.setState({loader:!this.state.loader});
+     
+  };
+
+  handleClose = (event, reason) => {
+      if (reason === "clickaway") {
+        return;
+      }
+      this.setState({loader:false});
+  };
 
   addedtoCart = (value) => {
     this.setState({ inputQuantity: !this.state.inputQuantity })
-    let data = {
+    let data = { 
       isCart: true
     }
     let token = localStorage.getItem('Token')
-    console.log(value);
     service.addToCartBook(data, value._id, token).then((res) => {
-      console.log(value);
-      console.log(res);
+      this.getCart();
       this.setState({ cartId: value._id })
-      console.log("cartId", this.state.cartId);
+      let cart_Num = this.state.count + 1;
+      this.setState({count : cart_Num});   
+      this.props.history.push('/bookdetails')
     })
       .catch((err) => {
         console.log(err);
-      })
+    })
   }
 
+getCart=()=>{
+  this.handleToggle();
+  service.getCartItems().then((res) => {
+    this.setState({ getCart: res.data.result });
+    this.state.getCart.map((value) => {
+      if(this.props.selectedBook.bookName == value.product_id.bookName){
+        console.log("if hereeeeeeeeee")
+        this.setState({bookBagged : true})
+      }
+      this.handleClose();          
+    }) 
+
+  })
+}
+ 
   increaseBook = (quantity, productid) => {
-    console.log("quantity", quantity);
-    // this.componentDidMount();
     let data = {
       "quantityToBuy": quantity + 1
     }
-    console.log(data, productid);
     service.cartQuantity(data, productid).then((res) => {
       console.log(res);
-      // props.get();
+      this.getCart();
     }).catch((err) => {
       console.log(err);
     })
   }
+ 
+  bookInBag = (id) =>{
+   
+    console.log("Id", id )
+  
+      let result = this.state.getCart.find(function(value) {
+        
+        console.log("Id here inside", id, value.product_id._id )
+        if(value.product_id._id === id){
+          console.log("book in bag method" )
+          return true;
+        }else{
+          return false;
+        }
+      })
+
+      return result;
+   
+  }
+
   render() {
-    console.log(this.props.displayDetail, "display details");
+    const {classes} = this.props;
+    console.log(this.props.selectedBook, "display details");
+    console.log(this.props.cart_count, "count of books");
+    console.log(this.state.bookBagged,"Book in bag")
     return (
       <>
+      {this.state.loader ?
+            <Backdrop
+              className={classes.backdrop}
+              open={this.state.loader}
+              onClick={this.handleClose}>
+          <CircularProgress color="inherit" />
+        </Backdrop>:<>
+        <Header cartbooks={this.state.count} openCart={this.props.open}/>
         <div className="mainContainer">
           <div className="container">
             <div className="imgs-container">
@@ -85,36 +160,35 @@ export default class BookDetail extends Component {
               </div>
             </div>
             <div className="wishlist">
-              {this.state.inputQuantity ? <button
-                className="addtobag" onClick={() => this.addedtoCart(this.props.displayDetail)}
-              >
-                Add To Bag
-              </button> : <><div className="addOrRemove">
-               <button className="addbtn">+</button>
-                <button className="addbtn">-</button>
-              </div></>
-              }
-              <button className="addwishlist">
-                <i class="zmdi zmdi-favorite"></i> <span>WishList</span>
-              </button>
+
+            {this.bookInBag(this.props.selectedBook._id) ?           
+              <div className="addOrRemove">              
+                  <button className="addedtobag">ADDED TO BAG</button>
+              </div> 
+              :
+                <button className="addtobag" onClick={() => this.addedtoCart(this.props.selectedBook)}
+                    >ADD TO BAG
+                  </button>               
+                
+            }                  
             </div>
           </div>
 
-          <div className="details">
+          <div className="details"> 
             <div className="bookdetail">
               <div className="cardcontainer">
                 <div className="title">
-                  {this.props.displayDetail.bookName}
+                  {this.props.selectedBook.bookName}
                 </div>
                 <div className="author">
                   <span className="byauthor">by</span>
                   <span className="authorname">
-                    {this.props.displayDetail.author}
+                    {this.props.selectedBook.author}
                   </span>
                 </div>
                 <div className="card-rating">
                   <div className="star">
-                    <div className="number">4.5</div>
+                    <div className="number"> 4.5 &#9733;</div>
                     <div className="rating-star">
                       <i class="zmdi zmdi-star"></i>
                     </div>
@@ -128,7 +202,7 @@ export default class BookDetail extends Component {
                   </span>
                   <span className="price">
                     <strike>
-                      {this.props.displayDetail.price}
+                      {this.props.selectedBook.price}
                     </strike>
                   </span>
                 </div>
@@ -156,16 +230,20 @@ export default class BookDetail extends Component {
               {" "}
               <hr></hr>
             </div>
-            <div className="customer-feedback-container-">
+            {/* <div className="customer-feedback-container-">
               <span className="feedback">Customer Feedback</span>
               <CustomerFeedback />
-            </div>
+            </div> */}
             <div className="reviews">
 
             </div>
           </div>
         </div>
+        </>}
+        {/* <Footer/> */}
       </>
     );
   }
 }
+
+export default connect(mapStateToProps)(withStyles(styles)(BookDetail))
