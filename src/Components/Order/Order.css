@@ -7,7 +7,7 @@
     justify-content: space-evenly;
     align-items: center;
     margin: 0 15.5%;
-    margin-bottom: 13vh;
+    margin-bottom: 14vh;
     font: Roboto;
 }
 .orderbody .image {
@@ -90,7 +90,7 @@
         width: 15%;
         font-size: 12px;
     }
-}
+} 
 
 
 @media only screen and (min-width: 400px)and  (max-width: 500px){

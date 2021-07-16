@@ -6,7 +6,7 @@ export default class UserService{
     
     userRegistration = (data) => {
         console.log("User Service");
-        return axios.postMethod(baseUrl+"bookstore_user​/registration",data);
+        return axios.postMethod(baseUrl+"bookstore_user/registration",data);
     }
 
     userlogin = (data) =>{

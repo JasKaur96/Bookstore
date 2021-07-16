@@ -11,11 +11,8 @@
 }
 
 .dropbox-content{ 
-<<<<<<< HEAD
-=======
     
     margin-right: -24px;
->>>>>>> BookDetails
     width: 157px;
     height: 30px;
     margin-top:-11px
@@ -31,10 +28,6 @@
 .headers {
     font-size: 25px;
     margin-left: -52px;
-}
-.headers span{
-    font-size: 15px;
-    color: #878787;
 }
 .headers span{
     font-size: 15px;
@@ -102,7 +95,6 @@
 }
 .author {
     /* font-size: 10px;
-<<<<<<< HEAD
     color: #878787;
     padding-bottom: 5px;
      */
@@ -115,20 +107,6 @@
     font: normal normal normal 12px/16px  Roboto;
     letter-spacing: 0px;
     color: #878787;
-=======
-    color: #878787;
-    padding-bottom: 5px;
-     */
-     padding-top: 1px;
-    top: 349px;
-    left: 191px;
-    /* width: 63px; */
-    height: 13px;
-    text-align: left;
-    font: normal normal normal 12px/16px  Roboto;
-    letter-spacing: 0px;
-    color: #878787;
->>>>>>> BookDetails
     opacity: 1;
 }
 .price {
@@ -203,10 +181,7 @@
     } 
     .headers{
         font-size: 18px;
-<<<<<<< HEAD
-=======
         margin-left: -27px;
->>>>>>> BookDetails
     }
     .headers span{
         font-size: 14px;
@@ -216,15 +191,6 @@
         width: 1%;
     }
     .dropbox-content{
-<<<<<<< HEAD
-        margin-top:5%;
-        width:105%;
-        /* height: 100%; */
-    }
-   .books{
-       width: -40px;
-       height: -80px;
-=======
         margin-top: 5%;
         width: 133%;
         /* height: 100%; */
@@ -234,7 +200,6 @@
        width: -40px !important;
        height: -80px !important;
        margin-left: -4%;
->>>>>>> BookDetails
    }
    
    .paginationBlock {
@@ -250,10 +215,7 @@
     } 
     .headers{
         font-size: 18px;
-<<<<<<< HEAD
-=======
         margin-left: -27px;
->>>>>>> BookDetails
     }
     .headers span{
         font-size: 14px;
@@ -263,15 +225,6 @@
         width: 1%;
     }
     .dropbox-content{
-<<<<<<< HEAD
-        margin-top:5%;
-        width:105%;
-        /* height: 100%; */
-    }
-   .books{
-       width: -40px;
-       height: -80px;
-=======
         margin-top:5%;    
         width: 131%;
         margin-right: -29px;
@@ -281,7 +234,6 @@
     width: -40px !important;
     height: -80px !important;
     margin-left: 3%;
->>>>>>> BookDetails
    }
    
    .paginationBlock {

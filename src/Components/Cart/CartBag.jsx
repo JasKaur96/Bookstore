@@ -217,48 +217,28 @@ class CartBag extends React.Component {
                             </div>
                                 <div className="items">
                                     <div>{val.product_id.bookName}</div>
-<<<<<<< HEAD
-                                    <div className="author"> by{val.product_id.author}</div>
-=======
                                     <div className="author"> by {val.product_id.author}</div>
->>>>>>> BookDetails
                                     <div className="price">Rs.{val.product_id.price * val.quantityToBuy}</div>
                                     <div className="inlineicons">
                                         <AddCircleOutlineTwoToneIcon style={{ opacity: 0.4,cursor:"pointer"}} onClick={()=>this.increment(val._id, val.quantityToBuy)} />
                                         <div className="quantity">{val.quantityToBuy}</div>
                                         <RemoveCircleOutlineTwoToneIcon style={{ opacity: 0.4, cursor:"pointer"}} onClick={()=>this.decrement(val._id, val.quantityToBuy)} />
-<<<<<<< HEAD
-                                      {this.state.show === false ?  <div className="remove" onClick={() => this.removeCartId(val._id)}>Remove</div>:<></>}
-                                    </div>
-                                    {/* {this.state._cartbooks.length - 1 === index ? this.state.show ? null : <Button className="" variant="contained" color="primary" onClick={this.showCD}>
-                                    Place Order</Button> : null} */}
-                                </div>
-                            </div>
-                            {/* {this.state._cartbooks.length - 1 === index ? this.state.show ? null : <Button  variant="contained" color="primary" onClick={this.showCD}>
-                                    Place Order</Button> : null} */}
-=======
                                       {this.state.show === false ? <div className="remove" onClick={() => this.removeCartId(val._id)}>Remove</div>:<></>}
                                     </div>
                                    </div>
                             </div>
->>>>>>> BookDetails
                         </div>
                         <div className="placeOrder">
                         {this.state._cartbooks.length - 1 === index ? this.state.show ? null : <Button  variant="contained" color="primary" onClick={this.showCD}>
                                     Place Order</Button> : null}
                         </div></>
                         )
-<<<<<<< HEAD
-
-
-=======
->>>>>>> BookDetails
                     })
                 }
                 </div>
                 <div className="customerdetails box">
-                    <div>Customer Details </div>
-                    {this.state.show ? <>     <div className="addressfield">
+                    <div className="mycart">Customer Details </div>
+                    {this.state.show ? <><br></br> <div className="addressfield">
                         <TextField id="outlined-basic" label="Name" variant="outlined"
                             name="name"
                             margin='dense' onChange={this.changeStates}
@@ -269,7 +249,6 @@ class CartBag extends React.Component {
                         <TextField id="outlined-basic" label="Phone number" variant="outlined"
                             name="phno"
                             onChange={(e) => this.changeState(e)}
-
                             error={this.state.phnoError}
                             helperText={this.state.phnoErrormsg}
                             margin='dense' onChange={this.changeStates}
@@ -282,49 +261,41 @@ class CartBag extends React.Component {
                         /><TextField id="outlined-basic" label="Locality" variant="outlined"
                             name="locality"
                             margin='dense' onChange={this.changeStates}
-
                             error={this.state.localityError}
                             helperText={this.state.localityErrormsg}
                             margin='dense' onChange={this.changeStates}
                         />
-                        <TextField id="outlined-basic" label="address" variant="outlined"
+                        <TextField id="outlined-basic" label="Address" variant="outlined"
                             name="address" 
-                            // fullWidth 
                             className="address"
                             margin="dense" onChange={this.changeStates}
-
                             onChange={(e) => this.changeState(e)}
                             error={this.state.addressError}
                             helperText={this.state.addressErrormsg}
-                        /><TextField id="outlined-basic" label="city/town" variant="outlined"
+                        /><TextField id="outlined-basic" label="City/Town" variant="outlined"
                             name="city"
                             margin='dense' onChange={this.changeStates}
                             onChange={(e) => this.changeState(e)}
                             error={this.state.cityError}
                             helperText={this.state.cityErrormsg}
                         />
-                        <TextField id="outlined-basic" label="state" variant="outlined"
+                        <TextField id="outlined-basic" label="State" variant="outlined"
                             name="state"
                             margin='dense' onChange={this.changeStates}
-
                             onChange={(e) => this.changeState(e)}
                             error={this.state.stateError}
                             helperText={this.state.stateErrormsg}
                         />
 
-                    </div>
+                    </div> 
                         {this.state.showOs ? null : <Button variant="contained" onClick={this.submitUserDetails}>Continue</Button>} </>
                         : null}</div>
 
                 <div className="cartitems box">
-<<<<<<< HEAD
-                    <div className=""> Ordersummary</div>
-=======
-                    <div className=""> Order Summary</div>
->>>>>>> BookDetails
+                    <div className="mycart"> Order Summary</div>
                     {this.state.showOs ?
                         <> {this.state._cartbooks.map((val, index) => {
-                            return (<><div className="part1">
+                            return (<> <br></br><div className="part1">
                                 <div className="container">  <div>
                                     <img src={Dont} alt="" />
                                 </div>

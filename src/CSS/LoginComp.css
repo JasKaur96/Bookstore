@@ -79,20 +79,16 @@
     color: white;
 }
 
-@media only screen and (max-width: 360px) {
+@media only screen and (min-width: 300px) and (max-width: 400px) {
     .body {
-        display: flex;
         width: 100%;
-        position: relative;
-        height:96vh;
-        justify-content: center;
-        align-items: center;
+        height:100vh;       
    }
     .form {
-        margin: 0;
-        width: 300px;
-        padding: 15px;
-   }
+        margin-left: 1%;
+        margin-top: 5%;
+        width: 320px;
+    }
     .imagebody {
         display: none;
    }
@@ -116,7 +112,7 @@
         display: none;
    }
 }
-@media only screen and (max-width: 784px) {
+/* @media only screen and (max-width: 784px) {
     .imagebody {
         display: flex;
         width: 100%;
@@ -132,4 +128,4 @@
     .imagebody {
         display: none;
    }
-}
+} */
