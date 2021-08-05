@@ -41,15 +41,6 @@ export default function Profile() {
             <p>To access account and manage orders</p>
             <button className="profile_btn" onClick={logout}>LOGOUT</button>
           </div>
-          {/* <div className="line"><hr/></div>
-          <div className="profstore">
-            <MarkunreadMailboxOutlinedIcon style={{fontSize:"15", color:"gray"}} />
-            <p>My orders</p>
-          </div>
-          <div className="profwish">
-            <FavoriteBorderOutlinedIcon style={{fontSize:"15", color:"gray"}} />
-            <p>Wishlist</p>
-          </div> */}
         </div>
       </Popper>
     </>

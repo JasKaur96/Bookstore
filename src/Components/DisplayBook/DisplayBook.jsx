@@ -1,9 +1,5 @@
 import React, { Component,Profiler } from 'react';
 import './DispalyBook.css';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem'; 
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
 import UserService from '../../Services/BookService';
 import book1 from "../../Assets/book.png";
 import PaginationBar from '../Pagination/Pagination';
@@ -11,7 +7,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Footer from '../Footer/Footer';
-import Header from '../Header/Header';
+import BookCard from '../Card/BookCard';
 
 const service = new UserService();
 
@@ -22,7 +18,10 @@ const styles = theme => ({
     },
   });
   
+var  arr = [];
+
 class DisplayBook extends Component {
+   
     constructor(props) {
         super(props);
         this.state = ({ 
@@ -45,25 +44,19 @@ class DisplayBook extends Component {
     } 
  
     bookDetails = (e,value) =>{
-        console.log("Book next page",this.state._books)
-        console.log("Book page value",value)
         this.props.bookDetail(value);
     } 
 
     storeBooks = (books) => {
-        console.log("StoreBooks");
         this.books = books;       
         return this.books;
     }
 
-    changepage = (e, newpage) => {      
-        console.log(e.target.value);
+    changepage = (e, newpage) => {  
         this.setState({ currentPage: newpage });
     };
 
     getBooks = () => {
-        
-        console.log("getBooks");
         return this.books;
     }
 
@@ -83,7 +76,6 @@ class DisplayBook extends Component {
     };
 
     sort = (e) =>{
-        console.log("Sort");
         let sortData = [...this.state._books].sort(function(a,b){
             return b.price-a.price;
         })
@@ -95,12 +87,10 @@ class DisplayBook extends Component {
         }else if(e.target.value === "alpha"){
             let data = [...this.state._books].sort(function(a,b){
                 if(a.bookName < b.bookName){
-                    console.log("alpha sort  b ", b.bookName)
                     return -1;
                 }
                 return 0;
             })
-            console.log("Sorted:",data)
             this.setState({_books : data})
         }
     }
@@ -118,22 +108,34 @@ class DisplayBook extends Component {
             books = res.data.result;
             var book = this.storeBooks(books);  
             this.setState({ _books: books });
-            this.props.getBook(books);
-            
-            console.log("data",this.props.searchedData)
-            
+            this.props.getBook(books);            
             this.handleClose();
         }).catch((err) => {
             console.log(err);
             this.handleClose();
         })
     }
+  
+    bookInBag = (id) =>{
+        console.log("display",this.state._books);
+        console.log("display iddd",);
+
+        let result = this.state._books.find(function(value) {
+          if(value._id === id){
+              console.log("in ifffffffffffff")
+            return true;
+          }else{
+            console.log("in elsee")
+            return false;
+          }
+        })
+        return result;   
+    }
 
     getBooks = () => {
         this.setState({
             _books: this.getBooks(),
         })
-        console.log("Get Books method",this.state._books)
     }
     
     profiler = (id,phase,actualDuration,baseDuration,startTime,commitTime,interactions) => {
@@ -178,7 +180,8 @@ class DisplayBook extends Component {
                     <div className="books">
                    
                         {currentBooks.map((book) => {
-                            return <div className="showbooks" onClick={(e)=>this.bookDetails(e,book)}>
+                            return <BookCard book={book} bookDetails={this.bookDetails} bookInBag={this.bookInBag}></BookCard>
+                            {/* <div className="showbooks" onClick={(e)=>this.bookDetails(e,book)}>
                                 <div className="bookimage">
                                     <img src={book1} alt=""  />
                                 </div>
@@ -190,17 +193,17 @@ class DisplayBook extends Component {
                                     </div>
                                     <div className="price"><strong>Rs.{book.price}</strong></div>
                                 </div>
-                            </div>
+                            </div> */}
                             })
                         }
                     </div>                
                 </div>
                 <Profiler id="pagination" onRender={this.profiler}>
-                    <PaginationBar _books={this.state._books}
-                            postsPerPage={this.state.postsPerPage}
-                            currentPage={this.state.currentPage}
-                            changepage={this.changepage}
-                        />
+                    <PaginationBar _books={this.props.searchBook? this.props.searchedData : this.state._books}
+                        postsPerPage={this.state.postsPerPage}
+                        currentPage={this.state.currentPage}
+                        changepage={this.changepage}
+                    />                  
                 </Profiler>
                 <Profiler id="footer" onRender={this.profiler}>
                     <Footer/>

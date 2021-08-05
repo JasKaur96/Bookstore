@@ -24,12 +24,6 @@ const BookDetailsReducers = (state=initialState, action) => {
             return {
                 ...state, open:action.value
             }
-        // case SEARCHED_BOOK:
-        //     console.log("Searched action",action);
-        //     return {
-        //         ...state, searchedBook:action.value
-        //     }
-
         default:
             return {state}
    }

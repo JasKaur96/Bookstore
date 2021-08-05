@@ -1,5 +1,5 @@
 .body{
-    width: 1536px;
+    /* width: 1536px; */
     height: 720px;
     background-color:  #878787;
     position: relative;
@@ -11,7 +11,7 @@
 .background {
     position: absolute;
     width: 624px;
-    height: 391px;
+    height: 700px;
     background: #6e6a6a 0% 0% no-repeat padding-box;
     border-radius: 12px;
     opacity: 1;

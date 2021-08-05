@@ -61,36 +61,28 @@ profile = () => {
                   </div></>
               }
 
-              {/* {!this.props.header && <div><Link to="/home" style={{listStyleType:"none",color:'white',textDecoration:'none'}}>
-              
-               <p>Bookstore</p></Link></div>} */}
-                {this.props.value && <><p className="book"><Link to="/home" style={{ listStyleType: "none", color: 'white', textDecoration: 'none' }}>Bookstore</Link></p>
-                  <div className="input">              
-                    <SearchOutlinedIcon className="searchicon"/>   
+              {this.props.value && <><p className="book"><Link to="/home" style={{ listStyleType: "none", color: 'white', textDecoration: 'none' }}>Bookstore</Link></p>
+                <div className="input">              
+                  <SearchOutlinedIcon className="searchicon"/>   
                   <input type="text" placeholder="Search"  onChange={(e)=>this.handleChange(e,e.target.value)}/>
-                  </div></>}
+                </div></>}
               </div> 
               <div> 
                 <div className="pro">
-                {/* <PermIdentityIcon  className="proicon" /> */}
-                <Profile/>
-                Profile
+                 <Profile/>
+                  Profile
                 </div>              
-                <div className="cart">
-                
+              <div className="cart">  
                    {/* <IconButton aria-label="cart"> */}
-                    <StyledBadge badgeContent={this.props.cartbooks} color="white" >
-                      <Link to="/cart">
-                        <ShoppingCartOutlinedIcon className="carticon"  />
-                      </Link>
-                    </StyledBadge>
-                
-                  {/* </IconButton> */}
-                    Cart
+                <StyledBadge badgeContent={this.props.cartbooks} color="white" >
+                  <Link to="/cart">
+                    <ShoppingCartOutlinedIcon className="carticon"  />
+                  </Link>
+                </StyledBadge>Cart
                 </div>             
               </div>
             </div>
             </>
         )
-    }
+    } 
 }

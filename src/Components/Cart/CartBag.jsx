@@ -197,7 +197,6 @@ class CartBag extends React.Component {
             console.log(res);
             this.setState({ reload: !this.state.reload })
             this.componentDidMount();
-            // this.props.history.push('/home')
         }).catch((err) => {
             console.log(err);
         })
@@ -302,7 +301,7 @@ class CartBag extends React.Component {
                                     <div className="items">
                                         <div>{val.product_id.bookName}</div>
                                         <div className="author"> by{val.product_id.author}</div>
-                                        <div className="price">Rs.{val.product_id.price * val.quantityToBuy}</div>
+                                        <div className="price">Quantity : {val.quantityToBuy}<br></br>Rs.{val.product_id.price * val.quantityToBuy}</div>
 
                                     </div></div>
                                     

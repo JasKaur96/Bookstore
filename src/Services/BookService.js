@@ -10,6 +10,7 @@ export default class BookService{
     }
  
     addToCartBook = (data, product_id,token) => {
+        console.log("book service",data, product_id)
         return axios.postMethod(`${baseUrl}bookstore_user/add_cart_item/${product_id}`,data,{
             headers: {
                 'x-access-token': localStorage.getItem('Token')
@@ -47,7 +48,7 @@ export default class BookService{
                 'x-access-token' :localStorage.getItem('Token'),
             } 
         })     
-
+ 
     }
 
    order=(data)=>{

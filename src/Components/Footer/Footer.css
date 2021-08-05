@@ -27,3 +27,12 @@
         margin-top: 200px;
     }
 }
+
+
+@media only screen and (min-width: 360px) and (max-width:400px){
+    .footer p{
+        font-size: 10px;
+        font: normal normal medium 10px/12px Lato;
+        margin-left: 11%;
+    }
+}

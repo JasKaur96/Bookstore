@@ -18,8 +18,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { connect } from 'react-redux';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+
 const mapStateToProps = (state) => {
-  console.log("state",state.bookDetails, "/n count ", state.cart_count);
   return {
       selectedBook:state.bookDetails,
       cart_count:state.cart_count,
@@ -89,7 +89,6 @@ getCart=()=>{
     this.setState({ getCart: res.data.result });
     this.state.getCart.map((value) => {
       if(this.props.selectedBook.bookName == value.product_id.bookName){
-        console.log("if hereeeeeeeeee")
         this.setState({bookBagged : true})
       }
       this.handleClose();          
@@ -103,7 +102,6 @@ getCart=()=>{
       "quantityToBuy": quantity + 1
     }
     service.cartQuantity(data, productid).then((res) => {
-      console.log(res);
       this.getCart();
     }).catch((err) => {
       console.log(err);
@@ -111,29 +109,18 @@ getCart=()=>{
   }
  
   bookInBag = (id) =>{
-   
-    console.log("Id", id )
-  
       let result = this.state.getCart.find(function(value) {
-        
-        console.log("Id here inside", id, value.product_id._id )
         if(value.product_id._id === id){
-          console.log("book in bag method" )
           return true;
         }else{
           return false;
         }
       })
-
-      return result;
-   
+      return result;   
   }
 
   render() {
     const {classes} = this.props;
-    console.log(this.props.selectedBook, "display details");
-    console.log(this.props.cart_count, "count of books");
-    console.log(this.state.bookBagged,"Book in bag")
     return (
       <>
       {this.state.loader ?
@@ -154,7 +141,7 @@ getCart=()=>{
                 <div className="image2">
                   <img src={Book} className="mediumimg" alt="" />
                 </div>
-              </div>
+              </div> 
               <div className="mainimg">
                 <img src={Book} className="bigimg" alt="" />
               </div>
@@ -230,17 +217,11 @@ getCart=()=>{
               {" "}
               <hr></hr>
             </div>
-            {/* <div className="customer-feedback-container-">
-              <span className="feedback">Customer Feedback</span>
-              <CustomerFeedback />
-            </div> */}
-            <div className="reviews">
-
-            </div>
           </div>
         </div>
+        <Footer/>
         </>}
-        {/* <Footer/> */}
+      
       </>
     );
   }
