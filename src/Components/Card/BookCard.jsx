@@ -24,7 +24,8 @@ const mapStateToProps = (state) => {
 const styles = theme => ({
     root: {
         padding: 9,
-        width: 233,
+        // position:"fixed",
+        // width: 233,
         height: 258,
         marginTop: 17,
         // boxShadow:"5px 10px 10px #9E9E9E",
@@ -37,12 +38,12 @@ const styles = theme => ({
     media: {
       height: 140,
       width: 90,
-      marginLeft: 58  
+      marginLeft: 68  
     },
     margin: {
         width: 130,
-        marginLeft: theme.spacing(6.5) 
-        // margin: theme.spacing(0.3),
+        marginLeft: theme.spacing(7.5) 
+       
       },
   });
 

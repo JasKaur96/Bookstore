@@ -8,6 +8,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Footer from '../Footer/Footer';
 import BookCard from '../Card/BookCard';
+import { Grid, Paper } from '@material-ui/core';
 
 const service = new UserService();
 
@@ -16,6 +17,10 @@ const styles = theme => ({
       zIndex: theme.zIndex.drawer + 1,
       color: '#fff',
     },
+    paper:{
+        height: 258,
+        marginTop: 37,
+    }
   });
   
 var  arr = [];
@@ -178,9 +183,15 @@ class DisplayBook extends Component {
                         </div>
                     </div>
                     <div className="books">
+                    <Grid container spacing={3}>                      
                    
                         {currentBooks.map((book) => {
-                            return <BookCard book={book} bookDetails={this.bookDetails} bookInBag={this.bookInBag}></BookCard>
+                            return <Grid item xs={3}>
+                                <Paper className={classes.paper}>
+                                    <BookCard book={book} bookDetails={this.bookDetails} bookInBag={this.bookInBag}></BookCard>
+                                </Paper>
+                            </Grid>
+                            
                             {/* <div className="showbooks" onClick={(e)=>this.bookDetails(e,book)}>
                                 <div className="bookimage">
                                     <img src={book1} alt=""  />
@@ -196,6 +207,7 @@ class DisplayBook extends Component {
                             </div> */}
                             })
                         }
+                        </Grid>
                     </div>                
                 </div>
                 <Profiler id="pagination" onRender={this.profiler}>
