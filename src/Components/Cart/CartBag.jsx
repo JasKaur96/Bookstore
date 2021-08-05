@@ -193,8 +193,9 @@ class CartBag extends React.Component {
     }
 
     removeCartId = (id) => {
+        console.log(typeof(id),"cart");
         service.removeCartItem(id).then((res) => {
-            console.log(res);
+            console.log(typeof(id),"cart inside");
             this.setState({ reload: !this.state.reload })
             this.componentDidMount();
         }).catch((err) => {

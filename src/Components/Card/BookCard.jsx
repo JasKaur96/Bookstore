@@ -9,9 +9,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import UserService from '../../Services/BookService';
+import Service from '../../Services/BookService';
   
-const service = new UserService();
+const service = new Service();
 
 const mapStateToProps = (state) => {
     return {
@@ -42,7 +42,7 @@ const styles = theme => ({
     },
     margin: {
         width: 130,
-        marginLeft: theme.spacing(7.5) 
+        marginLeft: theme.spacing(6.5) 
        
       },
   });
@@ -77,17 +77,16 @@ class BookCard extends Component {
         }
 
         if(this.state.bookBagged === true){
-            console.log("if book bagged.",value._id)
+            console.log("if book bagged.",typeof(value._id))
+            this.removeBookFromCart(value._id)
 
-            // this.removeBookFromCart(value._id)
-
-            service.removeCartItem(value._id).then((res) => {
-                console.log(res, "value id ---", value._id); 
-                this.setState({bookBagged : false})
-                    
-            }).catch((err) => {
-                console.log(err);
-            })
+            // service.removeCartItem(value._id).then((res) => {
+            //     console.log(res);
+            //     this.setState({ bookBagged: false })
+            //     this.componentDidMount();
+            // }).catch((err) => {
+            //     console.log(err);
+            // })
         }else{
             this.setState({ inputQuantity: !this.state.inputQuantity })           
 
@@ -133,7 +132,7 @@ class BookCard extends Component {
 
         return (
             <Card className={classes.root}>
-             <CardActionArea onClick={(e)=>this.props.bookDetails(e,this.props.book)}>
+             <CardActionArea onClick={(e)=>this.props.bookDetails(e,this.props.book,this.props.index)}>
                <CardMedia
                  className={classes.media}
                  image={book1}               
@@ -150,12 +149,10 @@ class BookCard extends Component {
                 </Typography>
               </CardContent>
             </CardActionArea>
-            <CardActions className={classes.margin}>         
-            
+            <CardActions className={classes.margin}>       
                 <Button variant="contained" size="small" color= {this.state.bookBagged ? "secondary":"primary"}
                     onClick={() => this.addToCart(this.props.book) }>{this.state.bookBagged ?<> REMOVE </>:<> ADD TO BAG</>}
-                </Button>               
-             
+                </Button>            
             </CardActions>
           </Card>
         

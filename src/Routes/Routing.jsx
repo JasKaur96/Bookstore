@@ -12,7 +12,8 @@ const Routing = () => {
           <Switch>
             <AuthRoute exact path="/" component={Registration}></AuthRoute>
             <AuthRoute path = "/login" component={Login}></AuthRoute> 
-            <ProtectedRoute exact path = "/dashboard" component={Dashboard}></ProtectedRoute>              
+            <ProtectedRoute exact path = "/dashboard" component={Dashboard}></ProtectedRoute>  
+            {/* <Route path="/" component={CartBag}></Route>              */}
             <Route path="/cart" component={CartBag}></Route> 
           </Switch>
         </div>

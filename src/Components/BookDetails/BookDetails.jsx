@@ -76,7 +76,8 @@ class BookDetail extends Component {
       this.setState({ cartId: value._id })
       let cart_Num = this.state.count + 1;
       this.setState({count : cart_Num});   
-      this.props.history.push('/bookdetails')
+      const URL = `/bookdetails/${value._id}`;
+      this.props.history.push({pathname: URL, id: value._id });
     })
       .catch((err) => {
         console.log(err);

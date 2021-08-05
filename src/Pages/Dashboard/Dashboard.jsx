@@ -45,7 +45,9 @@ componentDidMount(){
 onClickBook=(book)=>{
   this.setState({ selectedBook: book })
   this.props.dispatch({type:BOOK_SELECTED , value:book})
-  this.props.history.push('/bookdetails')  
+  // this.props.history.push('/bookdetails')  
+  const URL = `/bookdetails/${book._id}`;
+  this.props.history.push({pathname: URL, id: book._id });
 }
 
 openCart = ()=>{

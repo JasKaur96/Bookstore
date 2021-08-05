@@ -20,6 +20,9 @@ const styles = theme => ({
     paper:{
         height: 258,
         marginTop: 37,
+    },
+    card:{
+        padding: 20
     }
   });
   
@@ -183,7 +186,7 @@ class DisplayBook extends Component {
                         </div>
                     </div>
                     <div className="books">
-                    <Grid container spacing={3}>                      
+                    <Grid container spacing={3} className={classes.card}>                      
                    
                         {currentBooks.map((book) => {
                             return <Grid item xs={3}>
