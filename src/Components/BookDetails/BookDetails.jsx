@@ -6,7 +6,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import UserService from '../../Services/BookService';
 import Book from "../../Assets/book.png";
-import { Button } from '@material-ui/core';
+import { Button, Snackbar } from '@material-ui/core';
 import Paginations from "@material-ui/lab/Pagination";
 import PaginationBar from '../Pagination/Pagination';
 import "../../CSS/BookDetail.css"
@@ -18,6 +18,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { connect } from 'react-redux';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import { Alert } from '@material-ui/lab';
 
 const mapStateToProps = (state) => {
   return {
@@ -44,7 +45,9 @@ class BookDetail extends Component {
         cartId:"",
         loader: false,
         bookBagged: false,
-        count:this.props.cart_count
+        count:this.props.cart_count,
+        snackMessage: "",
+        snackType: "",
     } 
 }
 
@@ -76,8 +79,12 @@ class BookDetail extends Component {
       this.setState({ cartId: value._id })
       let cart_Num = this.state.count + 1;
       this.setState({count : cart_Num});   
-      const URL = `/bookdetails/${value._id}`;
-      this.props.history.push({pathname: URL, id: value._id });
+      this.setState({ snackType: "success", snackMessage: "Added book to cart!", open: true, setOpen: true });
+      this.handleClose();
+     
+      // const URL = `/bookdetails/${value._id}`;
+      // this.props.history.push({pathname: URL, id: value._id });
+      // this.props.history.push
     })
       .catch((err) => {
         console.log(err);
@@ -120,8 +127,15 @@ getCart=()=>{
       return result;   
   }
 
+  handleSnackClose = () => {
+    this.setState({
+        open: false,
+        setOpen: false
+    })
+}
   render() {
     const {classes} = this.props;
+    console.log(this.props.history)
     return (
       <>
       {this.state.loader ?
@@ -220,6 +234,14 @@ getCart=()=>{
             </div>
           </div>
         </div>
+        <div>
+          <Snackbar style={{width:"250px"}} open={this.state.open} autoHideDuration={3000}  onClose={this.handleSnackClose}>
+            <Alert severity={this.state.snackType}>
+              {this.state.snackMessage}
+            </Alert>
+          </Snackbar>
+        </div>
+
         <Footer/>
         </>}
       

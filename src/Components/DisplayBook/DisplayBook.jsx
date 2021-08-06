@@ -8,7 +8,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Footer from '../Footer/Footer';
 import BookCard from '../Card/BookCard';
-import { Grid, Paper } from '@material-ui/core';
+import { FormControl, Grid, InputLabel, Menu, MenuItem, Paper, Select } from '@material-ui/core';
 
 const service = new UserService();
 
@@ -20,10 +20,20 @@ const styles = theme => ({
     paper:{
         height: 258,
         marginTop: 37,
+        marginBottom: 7,
     },
     card:{
-        padding: 20
-    }
+        padding: 25,
+    },
+    formControl: {
+        // margin: theme.spacing(1),
+        minWidth: 200,
+        minHeight: 2
+      },
+      selectEmpty: {
+        marginTop: theme.spacing(10),
+      },
+ 
   });
   
 var  arr = [];
@@ -130,10 +140,8 @@ class DisplayBook extends Component {
 
         let result = this.state._books.find(function(value) {
           if(value._id === id){
-              console.log("in ifffffffffffff")
             return true;
           }else{
-            console.log("in elsee")
             return false;
           }
         })
@@ -177,12 +185,21 @@ class DisplayBook extends Component {
                             Books <span> ({this.props.searchBook ?<>{this.props.searchedData.length} </>:<>{this.state._books.length}</>} Items)</span>
                         </div>
                         <div className="select">
-                            <select  className="dropbox-content" onChange={(e) => this.sort(e)} >
-                                <option selected >  Sort by relevance</option>
-                                <option value="dsec" > Price: high to low</option>
-                                <option value="asec"  > Price: low to high</option>
-                                <option value="alpha" > Sort By: (A-Z)</option>
-                            </select>
+                            <FormControl  className={classes.formControl}>
+                                <InputLabel id="demo-simple-select-outlined-label">Sort by relevance</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-outlined-label"
+                                    id="demo-simple-select-outlined"
+                                    onChange={(e)=>this.sort(e)}
+                                    label="Age"
+                                    className={classes.selectEmpty}
+                                >
+                                <MenuItem value=""><em>None</em></MenuItem>
+                                <MenuItem value="dsec">Price: High to Low</MenuItem>
+                                <MenuItem value="asec">Price: Low to High</MenuItem>
+                                <MenuItem value="alpha" > Sort By: (A-Z)</MenuItem>
+                                </Select>
+                            </FormControl>
                         </div>
                     </div>
                     <div className="books">
@@ -191,7 +208,7 @@ class DisplayBook extends Component {
                         {currentBooks.map((book) => {
                             return <Grid item xs={3}>
                                 <Paper className={classes.paper}>
-                                    <BookCard book={book} bookDetails={this.bookDetails} bookInBag={this.bookInBag}></BookCard>
+                                    <BookCard book={book} bookDetails={this.bookDetails} bookInBag={this.bookInBag} getAllBooks={this.getAllBooks}></BookCard>
                                 </Paper>
                             </Grid>
                             

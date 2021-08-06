@@ -42,7 +42,7 @@ componentDidMount(){
   this.getCartbookLength();
 }
 
-onClickBook=(book)=>{
+onClickBook=(book)=>{ 
   this.setState({ selectedBook: book })
   this.props.dispatch({type:BOOK_SELECTED , value:book})
   // this.props.history.push('/bookdetails')  
@@ -87,7 +87,7 @@ render() {
   return (
     <div>
         <Header value={true} header={true} openCart={this.openCart} handleSearchBook={this.handleSearchBook} searchBook={this.state.searchBook} cartbooks={this.state.cartbooks.length} /> 
-        <DisplayBook header={true} searchBook={this.state.searchBook} getBook={this.getBook} searchedData={this.state.SearchedData} search={this.state.search} bookDetail={this.onClickBook} />
+        <DisplayBook header={true} searchBook={this.state.searchBook} getBook={this.getBook} searchedData={this.state.SearchedData} search={this.state.search}  bookDetail={this.onClickBook} />
 
     </div>
   )

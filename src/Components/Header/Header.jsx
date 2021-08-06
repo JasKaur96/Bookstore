@@ -73,7 +73,7 @@ profile = () => {
                   Profile
                 </div>              
               <div className="cart">  
-                   {/* <IconButton aria-label="cart"> */}
+                   {/* <IconButton aria-label="cart"> */} 
                 <StyledBadge badgeContent={this.props.cartbooks} color="white" >
                   <Link to="/cart">
                     <ShoppingCartOutlinedIcon className="carticon"  />

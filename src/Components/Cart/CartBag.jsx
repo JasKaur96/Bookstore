@@ -124,11 +124,12 @@ class CartBag extends React.Component {
             this.removeCartId(val._id);
         })
     }
+
     getCart(){
         service.getCartItems().then((res) => {
             console.log(res);
             this.setState({ _cartbooks: res.data.result });
-            // console.log(JSON.stringify(this.state._cartbooks));
+            console.log(this.state._cartbooks);
         })
     }
 
@@ -195,7 +196,7 @@ class CartBag extends React.Component {
     removeCartId = (id) => {
         console.log(typeof(id),"cart");
         service.removeCartItem(id).then((res) => {
-            console.log(typeof(id),"cart inside");
+            console.log(id,"cart inside");
             this.setState({ reload: !this.state.reload })
             this.componentDidMount();
         }).catch((err) => {
