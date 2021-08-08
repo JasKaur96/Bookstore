@@ -208,7 +208,7 @@ class DisplayBook extends Component {
                         {currentBooks.map((book) => {
                             return <Grid item xs={3}>
                                 <Paper className={classes.paper}>
-                                    <BookCard book={book} bookDetails={this.bookDetails} bookInBag={this.bookInBag} getAllBooks={this.getAllBooks}></BookCard>
+                                    <BookCard book={book} bookDetails={this.bookDetails} bookInBag={this.bookInBag} getAllBooks={this.getAllBooks} getCartbookLength={this.props.getCartbookLength}></BookCard>
                                 </Paper>
                             </Grid>
                             

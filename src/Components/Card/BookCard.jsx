@@ -66,20 +66,21 @@ class BookCard extends Component {
     }   
 
     addToCart = (value) => {
-        this.getCart();
+        // this.getCart();
         let data = { 
             isCart: true
         }
 
         if(this.state.bookBagged === true){
             console.log("if book bagged.",value._id)
-            // this.removeBookFromCart(value._id)
-            this.getCart();
+          
+            // this.getCart();
             console.log("if cart bagged.",this.state.book_id)
         
             service.removeCartItem(this.state.book_id).then((res) => {
                 console.log(res);
                 this.setState({ bookBagged: false })
+                this.props.getCartbookLength();
             }).catch((err) => {
                 console.log(err);
             })
@@ -91,15 +92,17 @@ class BookCard extends Component {
         
             service.addToCartBook(data, value._id, token).then((res) => {
                 console.log("inside aa to cart")
-                this.getCart();
+                // this.getCart();
                 this.setState({bookBagged : true})
                 let cart_Num = this.state.count + 1;
                 this.setState({count : cart_Num});   
+                this.props.getCartbookLength();
             })
             .catch((err) => {
                 console.log(err);
             })
         }
+        // this.props.getCartbookLength();
     }        
 
     getCart=()=>{        
@@ -107,7 +110,9 @@ class BookCard extends Component {
           this.setState({ getCartBook: res.data.result });
           this.state.getCartBook.map((value) => {
             if(this.props.book.bookName == value.product_id.bookName){
+                this.setState({bookBagged : true})
               this.setState({book_id : value._id})
+              
             }                   
           })       
         })
@@ -156,4 +161,4 @@ class BookCard extends Component {
     }
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(BookCard));
+export default withStyles(styles)(BookCard);

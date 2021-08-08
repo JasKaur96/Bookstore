@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
 import '../DisplayBook/DispalyBook.css';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
 import UserService from '../../Services/BookService';
 import Book from "../../Assets/book.png";
 import { Button, Snackbar } from '@material-ui/core';
-import Paginations from "@material-ui/lab/Pagination";
-import PaginationBar from '../Pagination/Pagination';
 import "../../CSS/BookDetail.css"
-import CustomerFeedback from "../FeedBack/FeedBack";
-import { withRouter } from 'react-router';
 import { withStyles } from "@material-ui/core/styles";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -48,17 +40,18 @@ class BookDetail extends Component {
         count:this.props.cart_count,
         snackMessage: "",
         snackType: "",
+        _books: ""
     } 
-}
+    this.getBookByRoute();
+  }
 
   componentDidMount() {
       this.getCart();
-     
+      this.getBookByRoute(); 
   }
 
   handleToggle = () => {
-      this.setState({loader:!this.state.loader});
-     
+      this.setState({loader:!this.state.loader});     
   };
 
   handleClose = (event, reason) => {
@@ -81,7 +74,7 @@ class BookDetail extends Component {
       this.setState({count : cart_Num});   
       this.setState({ snackType: "success", snackMessage: "Added book to cart!", open: true, setOpen: true });
       this.handleClose();
-     
+    
       // const URL = `/bookdetails/${value._id}`;
       // this.props.history.push({pathname: URL, id: value._id });
       // this.props.history.push
@@ -91,19 +84,18 @@ class BookDetail extends Component {
     })
   }
 
-getCart=()=>{
-  this.handleToggle();
-  service.getCartItems().then((res) => {
-    this.setState({ getCart: res.data.result });
-    this.state.getCart.map((value) => {
-      if(this.props.selectedBook.bookName == value.product_id.bookName){
-        this.setState({bookBagged : true})
-      }
-      this.handleClose();          
-    }) 
-
-  })
-}
+  getCart=()=>{
+    this.handleToggle();
+    service.getCartItems().then((res) => {
+      this.setState({ getCart: res.data.result });
+      this.state.getCart.map((value) => {
+        if((this.props.selectedBook?.bookName || this.state._books.bookName)== value.product_id.bookName){
+          this.setState({bookBagged : true})
+        }
+        this.handleClose();          
+      }) 
+    })
+  }
  
   increaseBook = (quantity, productid) => {
     let data = {
@@ -119,8 +111,10 @@ getCart=()=>{
   bookInBag = (id) =>{
       let result = this.state.getCart.find(function(value) {
         if(value.product_id._id === id){
+          console.log("true")
           return true;
         }else{
+          console.log("false")
           return false;
         }
       })
@@ -132,14 +126,34 @@ getCart=()=>{
         open: false,
         setOpen: false
     })
+} 
+
+
+getBookByRoute=()=>{
+  const queryParams = new URLSearchParams(window.location.search);
+  const book_details = (this.props.selectedBook?._id || queryParams.get('id'))
+  let book = "";
+
+  service.getAllBooks().then((res) => {
+    let books = res.data.result;    
+    books.filter(data => data._id === book_details).map((val) =>{
+      book = val;
+    }) 
+    this.setState({ _books: book }); 
+  }).catch((err) => {
+      console.log(err);
+      this.handleClose();
+  })
+ 
 }
+
   render() {
     const {classes} = this.props;
-    console.log(this.props.history)
+   
     return (
       <>
       {this.state.loader ?
-            <Backdrop
+        <Backdrop
               className={classes.backdrop}
               open={this.state.loader}
               onClick={this.handleClose}>
@@ -163,13 +177,13 @@ getCart=()=>{
             </div>
             <div className="wishlist">
 
-            {this.bookInBag(this.props.selectedBook._id) ?           
+            {this.bookInBag(this.state._books._id) ?           
               <div className="addOrRemove">              
                   <button className="addedtobag">ADDED TO BAG</button>
               </div> 
               :
-                <button className="addtobag" onClick={() => this.addedtoCart(this.props.selectedBook)}
-                    >ADD TO BAG
+              <button className="addtobag" onClick={() => this.addedtoCart(this.state._books)}
+                  >ADD TO BAG
                   </button>               
                 
             }                  
@@ -180,12 +194,12 @@ getCart=()=>{
             <div className="bookdetail">
               <div className="cardcontainer">
                 <div className="title">
-                  {this.props.selectedBook.bookName}
+                  {this.state._books.bookName}
                 </div>
                 <div className="author">
                   <span className="byauthor">by</span>
                   <span className="authorname">
-                    {this.props.selectedBook.author}
+                    {this.state._books.author}
                   </span>
                 </div>
                 <div className="card-rating">
@@ -204,7 +218,7 @@ getCart=()=>{
                   </span>
                   <span className="price">
                     <strike>
-                      {this.props.selectedBook.price}
+                      {this.state._books.price}
                     </strike>
                   </span>
                 </div>
