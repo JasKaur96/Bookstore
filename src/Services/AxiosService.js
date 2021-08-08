@@ -12,8 +12,8 @@ export default class AxiosService{
     }
 
     deleteMethod =(url,isHeaderRequired = false)=>{
+        console.log("axios",url)
         return axios.delete(url,isHeaderRequired)
-
     }
     
     putMethod =(url,data,isHeaderRequired = false)=>{

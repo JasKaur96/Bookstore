@@ -154,7 +154,7 @@
     height: 25px;
     padding: 8px;
     background-color: #a03037;
-    font-size: 10px;
+    /* font-size: 10px; */
 }
 .wishlist {
     width: 50px;
@@ -170,8 +170,8 @@
     color: white;
 }
 .paginationBlock {
-    margin-left: 45%;
-    margin-top: 10%;
+    margin-left: 43%;
+    margin-top: 3%;
     /* position:absolute; */
 }
 

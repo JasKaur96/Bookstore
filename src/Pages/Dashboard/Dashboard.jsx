@@ -1,4 +1,4 @@
-import React,{useState, Component} from 'react';
+import React,{Component} from 'react';
 import DisplayBook from '../../Components/DisplayBook/DisplayBook'
 import Header from '../../Components/Header/Header'
 import BookDetails from '../../Components/BookDetails/BookDetails';
@@ -42,10 +42,14 @@ componentDidMount(){
   this.getCartbookLength();
 }
 
-onClickBook=(book)=>{
+onClickBook=(book)=>{ 
   this.setState({ selectedBook: book })
   this.props.dispatch({type:BOOK_SELECTED , value:book})
-  this.props.history.push('/bookdetails')  
+  // this.props.history.push('/bookdetails')  
+  
+  const URL = `/bookdetails/?id=${book._id}`;
+  // const URL = `/bookdetails/${book._id}`;
+  this.props.history.push({pathname: URL, id: book._id });
 }
 
 openCart = ()=>{
@@ -85,7 +89,7 @@ render() {
   return (
     <div>
         <Header value={true} header={true} openCart={this.openCart} handleSearchBook={this.handleSearchBook} searchBook={this.state.searchBook} cartbooks={this.state.cartbooks.length} /> 
-        <DisplayBook header={true} searchBook={this.state.searchBook} getBook={this.getBook} searchedData={this.state.SearchedData} search={this.state.search} bookDetail={this.onClickBook} />
+        <DisplayBook header={true} searchBook={this.state.searchBook} getCartbookLength={this.getCartbookLength} getBook={this.getBook} searchedData={this.state.SearchedData} search={this.state.search}  bookDetail={this.onClickBook} />
 
     </div>
   )

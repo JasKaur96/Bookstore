@@ -9,9 +9,11 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import UserService from '../../Services/BookService';
+import Service from '../../Services/BookService';
+
+import { connect } from 'react-redux';
   
-const service = new UserService();
+const service = new Service();
 
 const mapStateToProps = (state) => {
     return {
@@ -23,15 +25,13 @@ const mapStateToProps = (state) => {
 
 const styles = theme => ({
     root: {
-        padding: 9,
-        // position:"fixed",
-        // width: 233,
+        padding: 8,
         height: 258,
-        marginTop: 17,
-        // boxShadow:"5px 10px 10px #9E9E9E",
+        marginTop: 20,
         "&:hover":{
-            height: 308,            
+            height: 305,            
             boxShadow:"2px 2px 15px 10px #9E9E9E",
+            marginTop: -20,            
         },      
     },
     
@@ -41,13 +41,11 @@ const styles = theme => ({
       marginLeft: 68  
     },
     margin: {
-        width: 130,
-        marginLeft: theme.spacing(7.5) 
-       
+        width: 410,
+        height: 30,
+        marginTop: -5, 
       },
-  });
-
-  
+  });  
 
 class BookCard extends Component {
     constructor(props) {
@@ -59,32 +57,30 @@ class BookCard extends Component {
             getCartBook:[],
             bookBagged: false,
             reload: true,
+            book_id:""
         }
     }
 
     componentDidMount=()=>{
         this.getCart();
-        // this.addToCart()
-    }
-    componentDidUpdate=()=>{
-    // this.addToCart()
-    }
+    }   
 
     addToCart = (value) => {
-        this.getCart();
+        // this.getCart();
         let data = { 
             isCart: true
         }
 
         if(this.state.bookBagged === true){
             console.log("if book bagged.",value._id)
-
-            // this.removeBookFromCart(value._id)
-
-            service.removeCartItem(value._id).then((res) => {
-                console.log(res, "value id ---", value._id); 
-                this.setState({bookBagged : false})
-                    
+          
+            // this.getCart();
+            console.log("if cart bagged.",this.state.book_id)
+        
+            service.removeCartItem(this.state.book_id).then((res) => {
+                console.log(res);
+                this.setState({ bookBagged: false })
+                this.props.getCartbookLength();
             }).catch((err) => {
                 console.log(err);
             })
@@ -100,11 +96,13 @@ class BookCard extends Component {
                 this.setState({bookBagged : true})
                 let cart_Num = this.state.count + 1;
                 this.setState({count : cart_Num});   
+                this.props.getCartbookLength();
             })
             .catch((err) => {
                 console.log(err);
             })
         }
+        // this.props.getCartbookLength();
     }        
 
     getCart=()=>{        
@@ -112,7 +110,9 @@ class BookCard extends Component {
           this.setState({ getCartBook: res.data.result });
           this.state.getCartBook.map((value) => {
             if(this.props.book.bookName == value.product_id.bookName){
-              this.setState({bookBagged : true})
+                this.setState({bookBagged : true})
+              this.setState({book_id : value._id})
+              
             }                   
           })       
         })
@@ -133,7 +133,7 @@ class BookCard extends Component {
 
         return (
             <Card className={classes.root}>
-             <CardActionArea onClick={(e)=>this.props.bookDetails(e,this.props.book)}>
+             <CardActionArea onClick={(e)=>this.props.bookDetails(e,this.props.book,this.props.index)}>
                <CardMedia
                  className={classes.media}
                  image={book1}               
@@ -150,12 +150,10 @@ class BookCard extends Component {
                 </Typography>
               </CardContent>
             </CardActionArea>
-            <CardActions className={classes.margin}>         
-            
-                <Button variant="contained" size="small" color= {this.state.bookBagged ? "secondary":"primary"}
+            <CardActions >       
+                <Button className={classes.margin} variant="contained" size="small" color= {this.state.bookBagged ? "secondary":"primary"}
                     onClick={() => this.addToCart(this.props.book) }>{this.state.bookBagged ?<> REMOVE </>:<> ADD TO BAG</>}
-                </Button>               
-             
+                </Button>            
             </CardActions>
           </Card>
         

@@ -1,5 +1,6 @@
 import AxiosService from "./AxiosService";
 import baseUrl from '../Constants/constants'
+import { LocalConvenienceStoreOutlined } from "@material-ui/icons";
 const axios = new AxiosService();
 
 export default class BookService{
@@ -62,6 +63,7 @@ export default class BookService{
 
     removeCartItem=(id)=>{
         console.log(id);
+        console.log(localStorage.getItem('Token'))
         return axios.deleteMethod(`${baseUrl}bookstore_user/remove_cart_item/${id}`,{
             headers:{
                 'x-access-token':localStorage.getItem('Token'),

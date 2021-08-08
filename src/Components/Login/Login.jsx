@@ -207,7 +207,7 @@ class Login extends React.Component {
                 <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
 
                     {/* <div className="line"></div>OR<div className="line"></div> */}
-                    </div>
+                    </div> 
                 {/* <div className="inlineButtons1">
                     <Button variant="contained" className='button1' color="primary">Facebook</Button>
                     <Button variant="contained" className='button2' color="default"> Google</Button>
